@@ -16,6 +16,10 @@ body {
     background-attachment: fixed;
 }
 
+#main {
+    text-align: center;
+}
+
 .container {
     width: 100%;
     height: 100%;
@@ -72,13 +76,12 @@ h1 {
 /* Header */
 .header {
     padding-top: 15vh;
+    padding-bottom: 5vh;
 }
 
 /* Button */
 .button {
     display: flex;
-    justify-content: center;
-    align-items: center;
     padding-top: 5vh;
 }
 
