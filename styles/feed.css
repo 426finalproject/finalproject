@@ -29,7 +29,7 @@ body {
     --accent-yellow: #FFD644;
     --accent-green1: #A1E397;
     --accent-green2: #7BCA6F;
-    --accent-green2: #39A062;
+    --accent-green3: #39A062;
 }
 
 h1 {
@@ -60,8 +60,8 @@ h1 {
     text-decoration: none;
 }
 
-.nav-bar li a.active {
-    background-color: white;
+.nav-bar li a:hover {
+    color: var(--accent-yellow);
 }
 
 /* Title */

@@ -1,5 +1,5 @@
 export class HomeView {
-    
+
     render(render_div) {
         let body = document.body
 

@@ -12,5 +12,7 @@ export class FeedView {
 
         header_div.append(header);
         render_div.append(header_div);
+
+        
     }
 }
