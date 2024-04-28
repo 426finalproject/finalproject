@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Share:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 * {
-    box-sizing: border-box;
-    margin: 0;
     font-family: "Share", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -10,9 +8,7 @@
 }
 
 body {
-    background-image: url(/assets/forecast-screen.png);
-    background-position: center;
-    background-size: cover;
+    background-color: var(--background);
 }
 
 :root {
@@ -27,6 +23,7 @@ body {
 
 h1 {
     color: black;
+    font-weight: 700;
 }
 
 /* Nav Bar */
@@ -46,6 +43,7 @@ h1 {
 .nav-bar li a {
     display: block;
     padding: 3vh;
+    font-weight: 700;
     text-align: center;
     text-decoration: none;
 }
@@ -57,5 +55,24 @@ h1 {
 /* Title */
 .title {
     text-align: center;
-    padding: 50vh;
+    padding-top: 50vh;
+}
+
+/* Button */
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 10vh;
+}
+
+button {
+    font-weight: 700;
+    font-style: normal;
+    color: var(--black);
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
 }
