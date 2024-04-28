@@ -35,6 +35,7 @@ body {
 h1 {
     color: black;
     font-weight: 700;
+    text-align: center;
 }
 
 /* Nav Bar */
@@ -67,6 +68,11 @@ h1 {
 .title {
     text-align: center;
     padding-top: 50vh;
+}
+
+/* Header */
+.header {
+    padding-top: 15vh;
 }
 
 /* Button */
