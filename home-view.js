@@ -5,7 +5,7 @@ export class HomeView {
     }
     
     render(render_div) {
-        let body = document.body;
+        let body = document.body
 
         // Title
         let title_div = document.createElement('div');
@@ -27,6 +27,7 @@ export class HomeView {
         start_button.addEventListener('click', () => {
             this.#status = true;
             body.style.backgroundImage = 'url(/assets/forecast-screen.png)';
+            
             title.textContent = "Select your location.";
             start_button.style.display = 'none';
         })

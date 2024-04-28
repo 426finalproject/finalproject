@@ -9,13 +9,17 @@
 }
 
 body {
+    height: 100vh;
     background-color: var(--background);
+    background-image: url(/assets/welcome-screen.png);
+    background-size: cover;
+    background-position: fixed;
+    background-attachment: fixed;
+}
+
+.container {
     width: 100%;
     height: 100%;
-    background-image: url(/assets/welcome-screen.png);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 :root {
