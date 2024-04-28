@@ -1,8 +1,9 @@
 import {db} from './db.mjs';
-export class Ingredient {
+export class PollenData {
 
     #id
-    #name
+    #location
+    #
 
     constructor (id, name) {
         this.#id = id;
