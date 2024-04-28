@@ -27,13 +27,40 @@ export class HomeView {
         start_button.addEventListener('click', () => {
             this.#status = true;
             body.style.backgroundImage = 'url(/assets/forecast-screen.png)';
-            
-            title.textContent = "Select your location.";
+            title_div.style.display = 'none';
+            title.style.display = 'none';
             start_button.style.display = 'none';
-        })
-
+            this.showForecast(render_div);
+        });
         button_div.append(start_button);
         render_div.append(button_div);
+    }
 
+    showForecast(render_div) {
+        // Header
+        let header_div = document.createElement('div');
+        header_div.classList.add('header');
+
+        let header = document.createElement('h1');
+        header.textContent = "5-Day Pollen Forecast";
+
+        header_div.append(header);
+        render_div.append(header_div);
+
+        // Forecast
+        let forecast_div = document.createElement('div');
+        forecast_div.classList.add('forecast');
+        
+        for (let i=0; i < 5; i++) {
+            let day = document.createElement('div');
+            day.classList.add('day');
+
+            let day_label = document.createElement('div');
+            day_label.classList.add('day-label');
+
+            day.append(day_label);
+            forecast_div.append(day);
+        }
+        render_div.append(forecast_div);
     }
 }

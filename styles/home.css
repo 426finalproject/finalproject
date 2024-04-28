@@ -9,11 +9,10 @@
 }
 
 body {
-    height: 100vh;
     background-color: var(--background);
     background-image: url(/assets/welcome-screen.png);
     background-size: cover;
-    background-position: fixed;
+    background-position: center center;
     background-attachment: fixed;
 }
 
@@ -35,10 +34,12 @@ body {
 h1 {
     color: black;
     font-weight: 700;
+    text-align: center;
 }
 
 /* Nav Bar */
 .nav-bar ul {
+    background-color: var(--background);
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -80,9 +81,47 @@ h1 {
 button {
     font-weight: 700;
     font-style: normal;
-    color: var(--black);
     background-color: var(--white);
-    border-radius: 10px;
-    padding: 10px;
-    border: none;
+    border-radius: 15px;
+    padding: 15px;
+    border: 5px solid var(--black);
+}
+
+button:hover {
+    background-color: var(--accent-yellow);
+}
+
+/* Header */
+.header {
+    padding-top: 15vh;
+}
+
+/* Forecasts */
+.forecast {
+    display: flex;
+    flex-direction: row;
+    padding: 5vh;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 15px;
+    min-height: 35vh;
+    background: var(--white);
+    border: 5px solid var(--black);
+}
+
+.day-label {
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+    .forecast {
+        flex-direction: column;
+    }
 }
