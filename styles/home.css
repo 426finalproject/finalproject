@@ -109,8 +109,9 @@ button:hover {
     flex-direction: column;
     flex: 1;
     margin: 15px;
-    min-height: 35vh;
+    min-height: 30vh;
     background: var(--white);
+    border-radius: 10px;
     border: 5px solid var(--black);
 }
 
