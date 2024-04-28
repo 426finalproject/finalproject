@@ -6,6 +6,7 @@
     font-family: "Share", sans-serif;
     font-weight: 400;
     font-style: normal;
+    color: var(--black);
     background-color: var(--background);
 }
 
@@ -17,4 +18,29 @@
     --accent-green1: #A1E397;
     --accent-green2: #7BCA6F;
     --accent-green2: #39A062;
-  }
+}
+
+/* Nav Bar */
+.nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.nav-bar li {
+    float: left;
+}
+
+.nav-bar li a {
+    display: block;
+    padding: 3vh 3vw 3vh 3vw;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav-bar li a.active {
+    background-color: white;
+}
