@@ -67,7 +67,12 @@ h1 {
 /* Title */
 .title {
     text-align: center;
-    padding-top: 40vh;
+    padding-top: 45vh;
+}
+
+/* Header */
+.header {
+    padding-top: 15vh;
 }
 
 /* Button */
@@ -90,11 +95,6 @@ button {
 
 button:hover {
     background-color: var(--accent-yellow);
-}
-
-/* Header */
-.header {
-    padding-top: 15vh;
 }
 
 /* Forecasts */

@@ -8,7 +8,7 @@ export class HomeView {
         title_div.classList.add('title');
 
         let title = document.createElement('h1');
-        title.textContent = "Welcome!";
+        title.innerHTML = `Welcome!<br>Forcast your Allergies.`;
     
         title_div.append(title);
         render_div.append(title_div);
@@ -19,7 +19,7 @@ export class HomeView {
 
         let button5 = document.createElement('button');
         button5.setAttribute('id', 'button5');
-        button5.textContent= '5-day forecast';
+        button5.textContent= 'Forecast';
         button5.addEventListener('click', () => {
             body.style.backgroundImage = 'url(/assets/forecast-screen.png)';
             title_div.style.display = 'none';
@@ -121,21 +121,16 @@ export class HomeView {
         let category = "Very Low";
         let indexDescription = "People with very high allergy to pollen are likely to experience symptoms";
         let healthRecommendations = "Pollen levels are very low right now. It's a great day to enjoy the outdoors!";
+        let plants = [];
         
         day_label.innerHTML = `
-            Day: ${label}
-            <br>
-            <br>
-            Level: ${value}
-            <br>
-            <br>
-            Category: ${category}
-            <br>
-            <br>
             Description: ${indexDescription}
             <br>
             <br>
             Health Recommendation: ${healthRecommendations}
+            <br>
+            <br>
+            Plants:
         `;
 
         day.append(day_label);

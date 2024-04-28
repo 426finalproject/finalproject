@@ -9,7 +9,6 @@
 }
 
 body {
-    height: 100vh;
     background-color: var(--background);
     background-image: url(/assets/forecast-screen.png);
     background-size: cover;
@@ -67,7 +66,7 @@ h1 {
 /* Title */
 .title {
     text-align: center;
-    padding-top: 40vh;
+    padding-top: 45vh;
 }
 
 /* Header */
@@ -81,7 +80,6 @@ h1 {
     justify-content: center;
     align-items: center;
     padding-top: 5vh;
-    padding-bottom: 10vh;
 }
 
 button {
@@ -89,7 +87,42 @@ button {
     font-style: normal;
     color: var(--black);
     background-color: var(--white);
+    border-radius: 15px;
+    padding: 15px;
+    border: 5px solid var(--black);
+    margin: 5px;
+}
+
+button:hover {
+    background-color: var(--accent-yellow);
+}
+
+/* Forecasts */
+.comment-holder {
+    display: flex;
+    flex-direction: row;
+    padding: 5vh;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 15px;
+    min-height: 30vh;
+    background: var(--white);
     border-radius: 10px;
-    padding: 10px;
-    border: none;
+    border: 5px solid var(--black);
+}
+
+.comment-label {
+    margin: 10px;
+    padding: 5px;
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+    .comment-holder {
+        flex-direction: column;
+    }
 }

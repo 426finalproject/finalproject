@@ -3,7 +3,7 @@ export class FeedView {
     render(render_div) {
         let body = document.body
 
-        // Title
+        // Header
         let header_div = document.createElement('div');
         header_div.classList.add('header');
 
