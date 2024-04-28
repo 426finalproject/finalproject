@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Share:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Share", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--black);
+}
+
+body {
+    background-image: url(/assets/forecast-screen.png);
+    background-position: center;
+    background-size: cover;
+}
+
+:root {
+    --background: #8BC7FF;
+    --black: #1E1E1E;
+    --white: white;
+    --accent-yellow: #FFD644;
+    --accent-green1: #A1E397;
+    --accent-green2: #7BCA6F;
+    --accent-green2: #39A062;
+}
+
+h1 {
+    color: black;
+}
+
+/* Nav Bar */
+.nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.nav-bar li {
+    float: left;
+}
+
+.nav-bar li a {
+    display: block;
+    padding: 3vh;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav-bar li a.active {
+    background-color: white;
+}
+
+/* Title */
+.title {
+    text-align: center;
+    padding: 50vh;
+}
