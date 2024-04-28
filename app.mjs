@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import {Ingredient} from './ingredient.mjs';
+import {Ingredient} from './forecast.mjs';
 import {Recipe} from './recipe.mjs';
 
 const app = express();

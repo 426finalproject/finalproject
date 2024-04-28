@@ -1,5 +1,5 @@
 import {db} from "./db.mjs";
-import { Ingredient} from "./ingredient.mjs";
+import { Ingredient} from "./forecast.mjs";
 import {Step} from "./step.mjs";
 export class Recipe {
 

@@ -3,7 +3,10 @@ export class PollenData {
 
     #id
     #location
-    #
+    #value
+    #category
+
+    
 
     constructor (id, name) {
         this.#id = id;
