@@ -37,6 +37,10 @@ export class HomeView {
     }
 
     showForecast(render_div) {
+        // Audio
+        let audio = new Audio('assets/marys-theme.mp3');
+        audio.play();
+
         // Header
         let header_div = document.createElement('div');
         header_div.classList.add('header');
@@ -57,6 +61,7 @@ export class HomeView {
 
             let day_label = document.createElement('div');
             day_label.classList.add('day-label');
+            day_label.innerHTML()
 
             day.append(day_label);
             forecast_div.append(day);
