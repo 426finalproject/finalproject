@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Share:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+*, body {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Share", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: var(--background);
+}
+
+:root {
+    --background: #8BC7FF;
+    --black: #1E1E1E;
+    --white: white;
+    --accent-yellow: #FFD644;
+    --accent-green1: #A1E397;
+    --accent-green2: #7BCA6F;
+    --accent-green2: #39A062;
+  }
