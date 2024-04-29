@@ -5,7 +5,7 @@ export class Comment {
     #name
     #comment
 
-    static #nextId=1;
+    static #nextId = 1;
     constructor (id, name, comment) {
         this.#id = id;
         this.#name = name;

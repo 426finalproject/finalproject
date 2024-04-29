@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.get('/forecast', async (req, res) => {
     let forecast = await Forecast.getAll();
     if(!forecast){
-        res.status(400).send("Bad request");
+        res.status(500).send("Unable to retreive forecast data");
         return;
     }
     res.json(forecast);
@@ -20,7 +20,7 @@ app.get('/forecast', async (req, res) => {
 app.get('/forecast/:id', async (req, res) => {
     let forecast = await Forecast.getDay(req.params.id);
     if (!forecast) {
-        res.status(400).send("Bad request");
+        res.status(500).send("Unable to retreive forecast data");
         return;
     }
     res.json(forecast);

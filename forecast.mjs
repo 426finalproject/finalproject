@@ -73,12 +73,11 @@ export class Forecast {
             let dailyInfo = data.dailyInfo[day];
 
             // Find the pollen type with the highest index
-            let highestType = dailyInfo.pollenTypeInfo[0];
-            let highestIndex = 0;
+            let highestType = undefined;
+            let highestIndex = -1;
             dailyInfo.pollenTypeInfo.forEach(type => {
-                let index = type.indexInfo.value;
-                if (index !== undefined && index > highestIndex) {
-                    highestType = type;
+                if (type.indexInfo !== undefined && type.indexInfo.value > highestIndex) {
+                    highestType = type.indexInfo.value;
                     highestIndex = index;
                 }
             });
@@ -92,15 +91,27 @@ export class Forecast {
             });
 
             // Create forecast
-            Forecast.#forecasts[day] = new Forecast(
-                dailyInfo.date.month,
-                dailyInfo.date.day,
-                highestIndex,
-                highestType.indexInfo.category,
-                highestType.indexInfo.indexDescription,
-                highestType.healthRecommendations,
-                plants
-            );
+            if (highestType === undefined) {
+                Forecast.#forecasts[day] = new Forecast(
+                    dailyInfo.date.month,
+                    dailyInfo.date.day,
+                    null,
+                    null,
+                    null,
+                    null,
+                    plants
+                );
+            } else {
+                Forecast.#forecasts[day] = new Forecast(
+                    dailyInfo.date.month,
+                    dailyInfo.date.day,
+                    highestIndex,
+                    highestType.indexInfo.category,
+                    highestType.indexInfo.indexDescription,
+                    highestType.healthRecommendations,
+                    plants
+                );
+            }
         }
         return Forecast.#forecasts;
     }
