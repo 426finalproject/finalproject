@@ -101,7 +101,7 @@ button:hover {
 .forecast {
     display: flex;
     flex-direction: row;
-    padding: 5vh;
+    padding: 10vh;
 }
 
 .day {
@@ -109,7 +109,7 @@ button:hover {
     flex-direction: column;
     flex: 1;
     margin: 15px;
-    min-height: 30vh;
+    min-height: 20vh;
     background: var(--white);
     border-radius: 10px;
     border: 5px solid var(--black);
