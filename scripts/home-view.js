@@ -58,30 +58,26 @@ export class HomeView {
 
         // Forecasts
 
-        forecast_data.forEach((forcast, i) => {
+        forecast_data.forEach((forecast, i) => {
             let day = document.createElement('div');
             day.classList.add('day');
             let day_label = document.createElement('div');
             day_label.classList.add('day-label');
 
             // Data
+            let month = forecast.month;
             let label = forecast.day;
             let value = forecast.index;
             let category = forecast.category;
-            let indexDescription = forecast.indexDescription;
             
-
             day_label.innerHTML = `
-                Day: ${label}
+                Date: ${month}/${label}
                 <br>
                 <br>
-                Level: ${value}
+                Index: ${value}
                 <br>
                 <br>
                 Category: ${category}
-                <br>
-                <br>
-                Description: ${indexDescription}
             `;
 
             let button1 = document.createElement('button');

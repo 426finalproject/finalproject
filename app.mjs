@@ -1,9 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import {Forecast} from './forecast.mjs';
 import {Comment} from './comment.mjs';
 
 const app = express();
+app.use(cors());
 const port = 3000;
 
 app.use(bodyParser.json());
