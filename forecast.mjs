@@ -77,8 +77,8 @@ export class Forecast {
             let highestIndex = -1;
             dailyInfo.pollenTypeInfo.forEach(type => {
                 if (type.indexInfo !== undefined && type.indexInfo.value > highestIndex) {
-                    highestType = type.indexInfo.value;
-                    highestIndex = index;
+                    highestType = type;
+                    highestIndex = type.indexInfo.value;
                 }
             });
 
