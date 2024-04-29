@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.get('/forecast', async (req, res) => {
     let forecast = await Forecast.getAll();
     if(!forecast){
-        res.status(500).send("Unable to retreive forecast data");
+        res.status(500).send("Unable to retreive forecasts");
         return;
     }
     res.json(forecast);
@@ -22,7 +22,7 @@ app.get('/forecast', async (req, res) => {
 app.get('/forecast/:id', async (req, res) => {
     let forecast = await Forecast.getDay(req.params.id);
     if (!forecast) {
-        res.status(500).send("Unable to retreive forecast data");
+        res.status(500).send("Unable to retreive forecasts");
         return;
     }
     res.json(forecast);
@@ -30,11 +30,11 @@ app.get('/forecast/:id', async (req, res) => {
 
 app.get('/comments', async (req, res) => {
     let comments = await Comment.getComments();
-    if(!comments){
-        res.status(400).send("Bad request");
+    if(!comments) {
+        res.status(500).send("Unable to retreive comments");
         return;
     }
-    res.json(comments.json());
+    res.json(comments);
 })
 
 app.post('/comments', async (req, res) => {
@@ -43,7 +43,7 @@ app.post('/comments', async (req, res) => {
         res.status(400).send("Bad request");
         return;
     }
-    res.status(201).json(comment.json());
+    res.status(201).json(comment);
 })
 
 app.listen(port, () => {
