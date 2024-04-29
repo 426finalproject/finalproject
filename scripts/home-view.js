@@ -39,7 +39,7 @@ export class HomeView {
 
     // Async function to call API
     async getForecasts() {
-        let fetch_result = await fetch('http://localhost:3000/forecast');  // send HTTP GEt request to /forecast endpoint
+        let fetch_result = await fetch('/forecast');  // send HTTP GEt request to /forecast endpoint
         if (!fetch_result.ok) {
             console.log("Failed to getForecasts!");
         }
@@ -49,7 +49,7 @@ export class HomeView {
 
     // Async function to call API with ID
     async getForecastsId(specific) {
-        let fetch_result = await fetch(`http://localhost:3000/forecast/${specific}`);  // send HTTP GET request to /forecast endpoint
+        let fetch_result = await fetch(`/forecast/${specific}`);  // send HTTP GET request to /forecast endpoint
         if (!fetch_result.ok) {
             console.log("Failed to getForecasts!");
         }
