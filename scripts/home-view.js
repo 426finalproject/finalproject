@@ -20,13 +20,13 @@ export class HomeView {
         // Event Listener
         button5.addEventListener('click', async () => {
             // Change Background
-            body.style.backgroundImage = `url(/forecast-screen.png)`;
+            body.style.backgroundImage = `url(../forecast-screen.png)`;
             // Hiding
             title_div.style.display = 'none';
             title.style.display = 'none';
             button5.style.display = 'none';
             // Audio
-            let audio = new Audio('/marys-theme.mp3');
+            let audio = new Audio('../marys-theme.mp3');
             audio.play();
             // API
             let forecast_data = await this.getForecasts();
