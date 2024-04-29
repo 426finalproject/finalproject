@@ -26,7 +26,7 @@ export class HomeView {
             title.style.display = 'none';
             button5.style.display = 'none';
             // Audio
-            let audio = new Audio('/.assets/marys-theme.mp3');
+            let audio = new Audio('./assets/marys-theme.mp3');
             audio.play();
             // API
             let forecast_data = await this.getForecasts();
