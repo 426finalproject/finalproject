@@ -5,9 +5,9 @@ import {Forecast} from './forecast.mjs';
 import {Comment} from './comment.mjs';
 
 const app = express();
-app.use(cors());
 const port = 3000;
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/forecast', async (req, res) => {
