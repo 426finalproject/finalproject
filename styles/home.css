@@ -10,7 +10,7 @@
 
 body {
     background-color: var(--background);
-    background-image: url('finalproject/welcome-screen.png');
+    background-image: url('../welcome-screen.png');
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;

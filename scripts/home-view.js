@@ -153,7 +153,7 @@ export class HomeView {
             Health Recommendation: ${healthRecommendationsString}
             <br>
             <br>
-            Plants: ${plantsString}
+            Plants To Watch Out For: ${plantsString}
         `;
 
         day.append(day_label);
