@@ -9,21 +9,21 @@ const port = 3000;
 app.use(bodyParser.json());
 
 app.get('/forecast', async (req, res) => {
-    let forecast = await Forecast.getForcast();
+    let forecast = await Forecast.getAll();
     if(!forecast){
         res.status(400).send("Bad request");
         return;
     }
-    res.json(forecast.json());
+    res.json(forecast);
 });
 
 app.get('/forecast/:id', async (req, res) => {
-    let forecast = await Forecast.findByDay(req.params.id);
+    let forecast = await Forecast.getDay(req.params.id);
     if (!forecast) {
         res.status(400).send("Bad request");
         return;
     }
-    res.json(forecast.json());
+    res.json(forecast);
 });
 
 app.get('/comments', async (req, res) => {
