@@ -6,7 +6,7 @@ export class HomeView {
         let title_div = document.createElement('div');
         title_div.classList.add('title');
         let title = document.createElement('h1');
-        title.innerHTML = `Welcome!<br>Forcast your allergies.`;
+        title.innerHTML = `Welcome!<br>Forecast your allergies.`;
         title_div.append(title);
         render_div.append(title_div);
 
