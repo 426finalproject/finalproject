@@ -20,7 +20,7 @@ export class HomeView {
         // Event Listener
         button5.addEventListener('click', async () => {
             // Change Background
-            body.style.backgroundImage = 'url(./assets/forecast-screen.png)';
+            body.style.backgroundImage = `url('./assets/forecast-screen.png')`;
             // Hiding
             title_div.style.display = 'none';
             title.style.display = 'none';
