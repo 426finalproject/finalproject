@@ -135,10 +135,16 @@ export class HomeView {
         });
 
         let plantsString = ""
-        plants.forEach(plant => {
-            plantsString += plant + ", ";
-        });
+        let plantLength = plants.length;
+        for (let i=0; i < plantLength; i++) {
+            if (i != plantLength - 1) {
+                plantsString += plants[i] + ", ";
 
+            }
+            else {
+                plantsString += plants[i]
+            }
+        }
         
         day_label.innerHTML = `
             Description: ${indexDescription}
