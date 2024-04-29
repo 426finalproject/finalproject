@@ -28,14 +28,32 @@ export class Comment {
             if (!row) {
                 return null;
             } else {
-                let step_ing_rows = await db.all('select name,comment from comments where id = ?', id);
-                let ingredient_ids = step_ing_rows.map(sir => sir.ingredient_id);                         // ???
-                return new Step(row.id, row.seq_no, row.instruction, ingredient_ids);
+                let all_id_comment = await db.all('select name, comment from comments where id = ?', id);
+                let comments = all_id_comment.map(each_comment => new Comment(id, each_comment.name, each_comment.comment));
+                return comments;
             }
         } catch (e) {
             return null;
         }
     }
+
+    static async getComments() {
+        try {
+            let all_comments = await db.all('select * from comments');
+    
+            if (!all_comments || all_comments.length === 0) {
+                return null;
+            } else {
+                let comments = all_comments.map(each_person => new Comment(each_person.id, each_person.name, each_person.comment));
+                return comments;
+            }
+        } catch (e) {
+            return null;
+        }
+    }
+    
+
+
 
     json() {
         return {
