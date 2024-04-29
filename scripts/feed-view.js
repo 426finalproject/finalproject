@@ -26,6 +26,7 @@ export class FeedView {
             let comment_text = input.value.trim();
             showComments(comment_text, render_div);
         });
+        render_div.append(document.createElement('br'));
         render_div.append(submit);
 
         let comment_div = document.createElement('div');

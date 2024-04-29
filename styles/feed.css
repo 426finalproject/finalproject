@@ -100,7 +100,18 @@ button:hover {
     background-color: var(--accent-yellow);
 }
 
-/* Forecasts */
+/* Input */
+input {
+    padding: 20px;
+    border-radius: 15px;
+    border: 5px solid var(--black);
+}
+
+label {
+    font-weight: 700;
+}
+
+/* Comments */
 .comment-holder {
     display: flex;
     flex-direction: row;
