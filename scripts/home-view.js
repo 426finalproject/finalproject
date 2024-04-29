@@ -47,7 +47,7 @@ export class HomeView {
         return result_json;
     }
 
-    // Async function to call API
+    // Async function to call API with ID
     async getForecastsId(specific) {
         let fetch_result = await fetch(`http://localhost:3000/forecast/${specific}`);  // send HTTP GET request to /forecast endpoint
         if (!fetch_result.ok) {
@@ -125,18 +125,29 @@ export class HomeView {
         day_label.classList.add('day-label');
 
         // Data
-        let indexDescription = forecast_data_specific.indexDescription;
-        let healthRecommendations = forecast_data_specific.healthRecommendations;
-        let plants = [];
+        let indexDescription = forecast_data_specific.description;
+        let healthRecommendations = forecast_data_specific.healthRecs;
+        let plants = forecast_data_specific.plants;
+
+        let healthRecommendationsString = ""
+        healthRecommendations.forEach(rec => {
+            healthRecommendationsString += rec + "\n";
+        });
+
+        let plantsString = ""
+        plants.forEach(plant => {
+            plantsString += plant + ", ";
+        });
+
         
         day_label.innerHTML = `
             Description: ${indexDescription}
             <br>
             <br>
-            Health Recommendation: ${healthRecommendations}
+            Health Recommendation: ${healthRecommendationsString}
             <br>
             <br>
-            Plants:
+            Plants: ${plantsString}
         `;
 
         day.append(day_label);
