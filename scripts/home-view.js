@@ -6,7 +6,7 @@ export class HomeView {
         let title_div = document.createElement('div');
         title_div.classList.add('title');
         let title = document.createElement('h1');
-        title.innerHTML = `Welcome!<br>Forcast your Allergies.`;
+        title.innerHTML = `Welcome!<br>Forcast your allergies.`;
         title_div.append(title);
         render_div.append(title_div);
 
@@ -47,6 +47,16 @@ export class HomeView {
         return result_json;
     }
 
+    // Async function to call API
+    async getForecastsId(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/forecast/${specific}`);  // send HTTP GET request to /forecast endpoint
+        if (!fetch_result.ok) {
+            console.log("Failed to getForecasts!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
+    }
+
     show5DayForecast(render_div, forecast_data) {
         // Header
         let text = "5-Day Pollen Forecast";
@@ -57,7 +67,6 @@ export class HomeView {
         forecast_div.classList.add('forecast');
 
         // Forecasts
-
         forecast_data.forEach((forecast, i) => {
             let day = document.createElement('div');
             day.classList.add('day');
@@ -77,7 +86,7 @@ export class HomeView {
                 Index: ${value}
                 <br>
                 <br>
-                Category: ${category}
+                Status: ${category}
             `;
 
             let button1 = document.createElement('button');
@@ -85,11 +94,13 @@ export class HomeView {
             button1.textContent= 'See more';
             button1.style.padding = '5px';
             button1.style.borderRadius = '10px';
-            button1.addEventListener('click', () => {
+            button1.addEventListener('click', async () => {
                 while(render_div.firstChild) {
                     render_div.removeChild(render_div.firstChild);
                 }
-                this.showMore(render_div);
+                let forecast_data_specific = await this.getForecastsId(i);
+                this.showMore(render_div, forecast_data_specific);
+                
             });
             day.append(day_label);
             day.append(button1);
@@ -98,7 +109,7 @@ export class HomeView {
         render_div.append(forecast_div);
     }
 
-    showMore(render_div) {
+    showMore(render_div, forecast_data_specific) {
         // Header
         let text = "1-Day Pollen Forecast";
         this.createHeader(render_div, text);
@@ -114,11 +125,8 @@ export class HomeView {
         day_label.classList.add('day-label');
 
         // Data
-        let label = "Monday";
-        let value = "1";
-        let category = "Very Low";
-        let indexDescription = "People with very high allergy to pollen are likely to experience symptoms";
-        let healthRecommendations = "Pollen levels are very low right now. It's a great day to enjoy the outdoors!";
+        let indexDescription = forecast_data_specific.indexDescription;
+        let healthRecommendations = forecast_data_specific.healthRecommendations;
         let plants = [];
         
         day_label.innerHTML = `
