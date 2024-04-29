@@ -1,4 +1,18 @@
 export class HomeView {
+    let port = 3000;
+    let host = 'localhost';
+
+    let execute_get = async function (report_div, path) {
+        report_div.p('Executing GET ' + path);
+        let fetch_result = await fetch("http://" + host + ":" + port + path);
+        if (!fetch_result.ok) {
+            report_div.p('GET failed.');
+            return null;
+        }
+        let result_json = await fetch_result.json();
+        report_div.p('Received:<br><pre>' + JSON.stringify(result_json) + '</pre>');
+        return result_json;
+    }
 
     render(render_div) {
         let body = document.body
