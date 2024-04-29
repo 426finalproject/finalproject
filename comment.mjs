@@ -52,9 +52,7 @@ export class Comment {
         }
     }
     
-
-
-
+    
     json() {
         return {
             id: this.getID(),
