@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import {Forecast} from './forecast.mjs';
-import {Status} from './status.mjs';
+import {Status} from './status.mjs'
 import {Comment} from './comment.mjs';
 
 const app = express();
@@ -30,12 +30,12 @@ app.get('/forecast/:id', async (req, res) => {
 });
 
 app.get('/status', async (req, res) => {
-    let statuses = await Status.getAll();
-    if (!statuses) {
+    let status = await Status.getText(req.body.id);
+    if (!status) {
         res.status(500).send('Unable to retreive statuses');
         return;
     }
-    res.json(statuses);
+    res.json(status);
 });
 
 app.post('/status/:id', async (req, res) => {

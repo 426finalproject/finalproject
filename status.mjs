@@ -10,9 +10,29 @@ export class Status {
         this.#text = text;
     }
 
-    static async setText(data){
+    static async getText(id) {
+        try{
+            let status = await db.get('select text from statuses where id = ?', id);
+            if (!status) {
+                // If not found, return empty status
+                return {
+                    id: '',
+                    text: ''
+                }
+            }
+
+            return {
+                id: status.id,
+                text: status.text
+            }
+        } catch(e) {
+            return null;
+        }
+    }
+
+    static async setText(id, text) {
         try {
-            let db_result = await db.run('insert into statuses values (?, ?)', data.id, data.text);
+            let db_result = await db.run('insert into statuses values (?, ?)', id, text);
             if (!db_result) {
                 return null;
             }
@@ -26,36 +46,15 @@ export class Status {
         }
     }
 
-    static async updateText(data){
+    static async updateText(id, text) {
         try {
-            await db.run('update statuses set text = ? where id = ?', data.text, data.id);
-        } 
-        catch (e) {
-            return false;
-        }
-        return true;
-
-    }
-
-    static async getText(id){
-        try{
-            let status = await db.get('select text from statuses where id = ?', id);
-
-            if (!status) {
-                return null;
-            }
-
+            await db.run('update statuses set text = ? where id = ?', text, id);
             return {
-                id: data.id,
-                text: status.text
+                id: id,
+                text: text
             }
-
-        } catch(e){
+        } catch (e) {
             return null;
         }
-
     }
-
-
-
 }
