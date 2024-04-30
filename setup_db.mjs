@@ -12,6 +12,6 @@ import {db} from './db.mjs';
 //        'FOREIGN KEY (ingredient_id) REFERENCES ingredients(id), FOREIGN KEY (step_id) REFERENCES steps(id))');
 
 
-await db.run('CREATE TABLE comments (id INTEGER PRIMARY KEY, name TEXT(20) NOT NULL, comment TEXT(100) NOT NULL)')
+await db.run('CREATE TABLE comments (id INTEGER PRIMARY KEY, text TEXT(100) NOT NULL)')
 
 db.close();
