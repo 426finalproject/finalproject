@@ -23,7 +23,10 @@ export class FeedView {
         let submit = document.createElement('button');
         submit.textContent = 'Post';
         submit.addEventListener('click', async (event) => {
+
+            // Not working
             input.innerHTML = '';
+
             await fetch('http://localhost:3000/comments', {
                 method: 'POST',
                 body: {
@@ -38,6 +41,7 @@ export class FeedView {
         render_div.append(document.createElement('br'));
         render_div.append(submit);
 
+        // Comments
         let comment_div = document.createElement('div');
         comment_div.classList.add('comment-holder');
         render_div.append(comment_div);
@@ -54,13 +58,14 @@ export class FeedView {
     }
 
     async showComments(comment_div) {
-        comment_div.innerHTML = '';
         let comments = await (await fetch('http://localhost:3000/comments')).json();
+        
+        comment_div.innerHTML = '';
         comments.forEach(comment => {
             let commentP = document.createElement('p');
             commentP.textContent = comment.text;
             commentP.classList.add('comment');
-            comment_div.add(commentP);
+            comment_div.append(commentP);
         });
     }
 }
