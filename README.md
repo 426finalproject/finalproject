@@ -7,7 +7,7 @@ We also created our own Comment API and Symptoms API to to store and update user
 
 Users can get a 5 day pollen forecast as well as get a more detailed allergy forecast for each of those 5 days. The more detailed report lists high allergens for that day and allows the user to record their symptoms.
 
-The Comments Feed
+The Comments Feed allows users to post comments about the website or talk about the allergy reports.
 
 ## Google Maps Pollen API
 The forecast endpoint provides up to 5 days of daily pollen information. We chose to display the month, day,
