@@ -23,6 +23,7 @@ export class FeedView {
         let submit = document.createElement('button');
         submit.textContent = 'Post';
         submit.addEventListener('click', async (event) => {
+            input.innerHTML = '';
             await fetch('http://localhost:3000/comments', {
                 method: 'POST',
                 body: {
