@@ -40,6 +40,13 @@ export class Status {
         }
         
         try {
+            // If status already exists
+            let status = await db.get('select * from statuses where id = ?', id);
+            if (status) {
+                return null;
+            }
+
+            // Create new status
             let db_result = await db.run('insert into statuses values (?, ?)', id, text);
             if (!db_result) {
                 return null;

@@ -83,8 +83,6 @@ app.delete('/comments', async (req, res) => {
     res.json(successful);
 })
 
-Status.setText(1, "HI");
-
 app.listen(port, () => {
     console.log('Running...');
 })
