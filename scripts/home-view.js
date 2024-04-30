@@ -215,6 +215,10 @@ export class HomeView {
             this.show5DayForecast(render_div, forecast_data);
         });
 
+        // Forecast Div
+        let post_div = document.createElement('div');
+        post_div.classList.add('post_div');
+
         // Post symptoms
         let symptoms_input = document.createElement('input');
         symptoms_input.setAttribute('type', 'text');
@@ -234,11 +238,12 @@ export class HomeView {
         });
 
         day.append(day_label);
-        day.append(symptoms_input);
-        day.append(post_button);
         day.append(back_button);
+        post_div.append(symptoms_input);
+        post_div.append(post_button);
         forecast_div.append(day);
         render_div.append(forecast_div);
+        render_div.append(post_div);
     }
 
     showSymptoms(render_div, forecast_data_specific, get_symptom_data, id) {
