@@ -46,8 +46,8 @@ export class Status {
             }
 
             return {
-                id: data.id,
-                text: data.text
+                id: id,
+                text: text
             }
         } catch (e) {
             return null;
