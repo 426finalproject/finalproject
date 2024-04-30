@@ -57,6 +57,17 @@ app.post('/comments', async (req, res) => {
     res.status(201).json(comment);
 })
 
+app.delete('/comments', async (req, res) => {
+    let comment = await Comment.removeComments(req.body.id);     //returns true or false
+    if (!comment) {
+        res.status(400).send("Bad request");
+        return;
+    }
+    res.json(comment);
+})
+
+
+
 app.listen(port, () => {
     console.log('Running...');
 })
