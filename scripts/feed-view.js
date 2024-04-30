@@ -25,9 +25,7 @@ export class FeedView {
         submit.addEventListener('click', async (event) => {
             await fetch('http://localhost:3000/comments', {
                 method: 'POST',
-                body: {
-                    text: input.value.trim()
-                },
+                body: JSON.stringify({ text: input.value.trim() }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
