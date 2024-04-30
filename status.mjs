@@ -16,7 +16,7 @@ export class Status {
         }
 
         try {
-            let status = await db.get('select text from statuses where id = ?', id);
+            let status = await db.get('select * from statuses where id = ?', id);
             if (!status) {
                 // If not found, return empty status
                 return {
@@ -40,7 +40,6 @@ export class Status {
         }
         
         try {
-            console.log(`Checkpoint 1: ${id} ${text}`);
             let db_result = await db.run('insert into statuses values (?, ?)', id, text);
             if (!db_result) {
                 return null;

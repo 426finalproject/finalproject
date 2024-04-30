@@ -66,7 +66,7 @@ app.get('/comments', async (req, res) => {
 })
 
 app.post('/comments', async (req, res) => {
-    let comment = await Comment.create(req.body);
+    let comment = await Comment.create(req.body.text);
     if (!comment) {
         res.status(400).send('Bad request');
         return;
@@ -83,7 +83,7 @@ app.delete('/comments', async (req, res) => {
     res.json(successful);
 })
 
-Status.setText(0, "HI")
+Status.setText(1, "HI");
 
 app.listen(port, () => {
     console.log('Running...');
