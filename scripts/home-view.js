@@ -49,7 +49,7 @@ export class HomeView {
         render_div.append(bee_div)
     }
 
-    // Async function to call API
+    // Async function to get info from 3rd-party API
     async getForecasts() {
         let fetch_result = await fetch('http://localhost:3000/forecast');  // send HTTP GET request to /forecast endpoint
         if (!fetch_result.ok) {
@@ -59,7 +59,7 @@ export class HomeView {
         return result_json;
     }
 
-    // Async function to call API with ID
+    // Async function to get info from 3rd-party API with ID
     async getForecastsId(specific) {
         let fetch_result = await fetch(`http://localhost:3000/forecast/${specific}`);  // send HTTP GET request to /forecast endpoint
         if (!fetch_result.ok) {
@@ -69,10 +69,31 @@ export class HomeView {
         return result_json;
     }
 
-    async postStatus(post) {
-        let fetch_result = await fetch(`http://localhost:3000/forecast/`);  // send HTTP GET request to /forecast endpoint
+    // Async function to get status
+    async getStatus(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/status/${specific}`);  // send HTTP GET request to /forecast endpoint
+        if (!fetch_result.ok) {
+            console.log("Failed to getStatus!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
+    }
+
+    // Async function to post status
+    async postStatus(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/status/${specific}`);  // send HTTP GET request to /forecast endpoint
         if (!fetch_result.ok) {
             console.log("Failed to postStatus!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
+    }
+
+    // Async function to post status
+    async putStatus(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/status/${specific}`);  // send HTTP GET request to /forecast endpoint
+        if (!fetch_result.ok) {
+            console.log("Failed to putStatus!");
         }
         let result_json = await fetch_result.json();
         return result_json;
