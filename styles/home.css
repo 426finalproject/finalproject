@@ -106,17 +106,18 @@ button:hover {
     padding: 5px;
 }
 
-.gifs {
+/* Bee Stuff */
+.bee_div { 
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
 }
 
-.gifs img {
+.bee {
+    width: 10%;
     margin-top: 5%;
     margin-left: 10%;
     margin-right: 10%;
-    width: 10%;
 }
 
 #status_input {
@@ -130,7 +131,13 @@ button:hover {
 .forecast {
     display: flex;
     flex-direction: row;
-    padding: 10vh;
+    padding: 5vh;
+}
+
+.forecast2 {
+    display: flex;
+    flex-direction: row;
+    padding: 12.5vh;
 }
 
 .day {
