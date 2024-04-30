@@ -121,7 +121,7 @@ export class HomeView {
             
             // Post button
             let post_button = document.createElement('button');
-            post_button.textContent= 'Post status';
+            post_button.textContent= 'Set status';
             post_button.style.padding = '5px';
             post_button.style.borderRadius = '10px';
             post_button.addEventListener('click', async () => {

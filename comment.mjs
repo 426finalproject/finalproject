@@ -42,4 +42,7 @@ export class Comment {
             return null;
         }
     }
+
+    static async removeComments(){}
+
 }

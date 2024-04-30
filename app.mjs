@@ -28,6 +28,17 @@ app.get('/forecast/:id', async (req, res) => {
     res.json(forecast);
 });
 
+app.post('/forecast', async (req, res) => {
+    // post status
+    
+    // let comment = await Comment.create(req.body);
+    // if (!comment) {
+    //     res.status(400).send("Bad request");
+    //     return;
+    // }
+    // res.status(201).json(comment);
+})
+
 app.get('/comments', async (req, res) => {
     let comments = await Comment.getComments();
     if(!comments) {
