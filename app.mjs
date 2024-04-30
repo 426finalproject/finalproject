@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import {Forecast} from './forecast.mjs';
+import {Status} from './status.mjs';
 import {Comment} from './comment.mjs';
 
 const app = express();
@@ -11,36 +12,45 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/forecast', async (req, res) => {
-    let forecast = await Forecast.getAll();
-    if(!forecast){
-        res.status(500).send("Unable to retreive forecasts");
+    let forecasts = await Forecast.getAll();
+    if(!forecasts){
+        res.status(500).send('Unable to retreive forecasts');
         return;
     }
-    res.json(forecast);
+    res.json(forecasts);
 });
 
 app.get('/forecast/:id', async (req, res) => {
     let forecast = await Forecast.getDay(req.params.id);
     if (!forecast) {
-        res.status(500).send("Unable to retreive forecast");
+        res.status(500).send('Unable to retreive forecast');
         return;
     }
     res.json(forecast);
 });
 
-app.post('/forecast/:id', async (req, res) => {
+app.get('/status', async (req, res) => {
+    let statuses = await Status.getAll();
+    if (!statuses) {
+        res.status(500).send('Unable to retreive statuses');
+        return;
+    }
+    res.json(statuses);
+});
+
+app.post('/status/:id', async (req, res) => {
     let status = await Status.setText(req.params.id, req.body.text);
     if (!status) {
-        res.status(400).send("Bad request");
+        res.status(400).send('Bad request');
         return;
     }
     res.status(201).json(status);
 });
 
-app.put('/forecast/:id', async (req, res) => {
+app.put('/status/:id', async (req, res) => {
     let status = await Status.updateText(req.params.id, req.body.text);
     if (!status) {
-        res.status(400).send("Bad request");
+        res.status(400).send('Bad request');
         return;
     }
     res.json(status);
@@ -49,7 +59,7 @@ app.put('/forecast/:id', async (req, res) => {
 app.get('/comments', async (req, res) => {
     let comments = await Comment.getComments();
     if(!comments) {
-        res.status(500).send("Unable to retreive comments");
+        res.status(500).send('Unable to retreive comments');
         return;
     }
     res.json(comments);
@@ -58,7 +68,7 @@ app.get('/comments', async (req, res) => {
 app.post('/comments', async (req, res) => {
     let comment = await Comment.create(req.body);
     if (!comment) {
-        res.status(400).send("Bad request");
+        res.status(400).send('Bad request');
         return;
     }
     res.status(201).json(comment);
@@ -67,7 +77,7 @@ app.post('/comments', async (req, res) => {
 app.delete('/comments', async (req, res) => {
     let successful = await Comment.removeComment(req.body.id); // true or false
     if (!successful) {
-        res.status(400).send("Bad request");
+        res.status(400).send('Bad request');
         return;
     }
     res.json(successful);
