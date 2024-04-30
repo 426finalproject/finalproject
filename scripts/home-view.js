@@ -137,36 +137,18 @@ export class HomeView {
                     render_div.removeChild(render_div.firstChild);
                 }
                 let forecast_data_specific = await this.getForecastsId(i);
-                this.showMore(render_div, forecast_data_specific);
+                this.showMore(render_div, forecast_data_specific, i);
                 
             });
 
-            // Post input
-            let status_input = document.createElement('input');
-            status_input.setAttribute('type', 'text');
-            status_input.setAttribute('id', 'status_input')
-            
-            // Post button
-            let post_button = document.createElement('button');
-            post_button.classList.add('small_button');
-            post_button.textContent = 'Post your status';
-            post_button.addEventListener('click', async () => {
-                // Hiding
-                let post_data = await this.postStatus(i);
-                this.showStatus(render_div, forecast_data, post_data);
-
-            });
-
             day.append(day_label);
-            day.append(status_input);
-            day.append(post_button);
             day.append(more_button);
             forecast_div.append(day);
         });
         render_div.append(forecast_div);
     }
 
-    showMore(render_div, forecast_data_specific) {
+    showMore(render_div, forecast_data_specific, id) {
         // Header
         let text = `${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
         this.createHeader(render_div, text);
@@ -186,11 +168,13 @@ export class HomeView {
         let healthRecommendations = forecast_data_specific.healthRecs;
         let plants = forecast_data_specific.plants;
 
+        // Health Recs
         let healthRecommendationsString = ""
         healthRecommendations.forEach(rec => {
             healthRecommendationsString += rec + "\n";
         });
 
+        // Plants
         let plantsString = ""
         let plantLength = plants.length;
         for (let i=0; i < plantLength; i++) {
@@ -231,30 +215,86 @@ export class HomeView {
             this.show5DayForecast(render_div, forecast_data);
         });
 
+        // Post symptoms
+        let symptoms_input = document.createElement('input');
+        symptoms_input.setAttribute('type', 'text');
+        symptoms_input.setAttribute('id', 'status_input')
+        
+        // Post button
+        let post_button = document.createElement('button');
+        post_button.classList.add('small_button');
+        post_button.textContent = 'Post your symptoms';
+        post_button.addEventListener('click', async () => {
+            // Hiding
+            while(render_div.firstChild) {
+                render_div.removeChild(render_div.firstChild);
+            }
+            let get_symptom_data = await this.getStatus(id);
+            this.showSymptoms(render_div, forecast_data_specific, get_symptom_data, id);
+        });
+
         day.append(day_label);
+        day.append(symptoms_input);
+        day.append(post_button);
         day.append(back_button);
         forecast_div.append(day);
         render_div.append(forecast_div);
     }
 
-    showStatus(render_div, forecast_data, post_data) {
-        forecast_data.forEach((forecast, i) => {
-            let day = document.createElement('div');
-            day.classList.add('day');
-            let day_label = document.createElement('div');
-            day_label.classList.add('day-label');
+    showSymptoms(render_div, forecast_data_specific, get_symptom_data, id) {
+        
+        // Header
+        let text = `${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
+        this.createHeader(render_div, text);
 
-            // Data
-            day_label.innerHTML = `
-                Date: ${forecast.month}/${forecast.day}
-                <br>
-                <br>
-                Index: ${forecast.index}
-                <br>
-                <br>
-                Status: ${post_data.status}
-            `;
+        // Forecast Div
+        let forecast_div = document.createElement('div');
+        forecast_div.classList.add('forecast2');
+     
+        // Forcasts
+        let day = document.createElement('div');
+        day.classList.add('day');
+        let day_label = document.createElement('div');
+        day_label.classList.add('day-label');
+
+        // Data
+        let indexDescription = forecast_data_specific.description;
+        let healthRecommendations = forecast_data_specific.healthRecs;
+        let plants = forecast_data_specific.plants;
+        let symtoms = get_symptom_data.symtoms;
+
+        // Health Recs
+        let healthRecommendationsString = ""
+        healthRecommendations.forEach(rec => {
+            healthRecommendationsString += rec + "\n";
         });
+
+        // Plants
+        let plantsString = ""
+        let plantLength = plants.length;
+        for (let i=0; i < plantLength; i++) {
+            if (i != plantLength - 1) {
+                plantsString += plants[i] + ", ";
+
+            }
+            else {
+                plantsString += plants[i]
+            }
+        }
+        
+        day_label.innerHTML = `
+            Description: ${indexDescription}
+            <br>
+            <br>
+            Health Recommendation: ${healthRecommendationsString}
+            <br>
+            <br>
+            Plants To Watch Out For: ${plantsString}
+            <br>
+            <br>
+            Symptoms: ${symtoms}
+        `;
+        render_div.append(forecast_div);
     }
 
     createHeader(render_div, text) {
