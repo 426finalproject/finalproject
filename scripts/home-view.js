@@ -83,27 +83,21 @@ export class HomeView {
             day_label.classList.add('day-label');
 
             // Data
-            let month = forecast.month;
-            let label = forecast.day;
-            let value = forecast.index;
-            let category = forecast.category;
-            
             day_label.innerHTML = `
-                Date: ${month}/${label}
+                Date: ${forecast.month}/${forecast.day}
                 <br>
                 <br>
-                Index: ${value}
+                Index: ${forecast.index}
                 <br>
                 <br>
-                Local Status: ${category}
+                Status: ${forecast.category}
             `;
 
             // See more button
             let more_button = document.createElement('button');
-            more_button.setAttribute('id', 'day'+i)
-            more_button.textContent= 'See more';
-            more_button.style.padding = '5px';
-            more_button.style.borderRadius = '10px';
+            more_button.classList.add('small_button');
+            more_button.setAttribute('id', 'day' + i)
+            more_button.textContent = 'See more';
             more_button.addEventListener('click', async () => {
                 // Hiding
                 while(render_div.firstChild) {
@@ -121,13 +115,13 @@ export class HomeView {
             
             // Post button
             let post_button = document.createElement('button');
-            post_button.textContent= 'Post your status';
-            post_button.style.padding = '5px';
-            post_button.style.borderRadius = '10px';
+            post_button.classList.add('small_button');
+            post_button.textContent = 'Post your status';
             post_button.addEventListener('click', async () => {
                 // Hiding
                 let post_data = await this.postStatus(i);
                 this.showStatus(render_div, forecast_data, post_data);
+
             });
 
             day.append(day_label);
@@ -191,7 +185,7 @@ export class HomeView {
         button_div.classList.add('button');
         let back_button = document.createElement('button');
         back_button.setAttribute('id', 'back_button');
-        back_button.textContent= 'Back';
+        back_button.textContent = 'Back';
 
         // Event Listener
         back_button.addEventListener('click', async () => {
@@ -225,14 +219,13 @@ export class HomeView {
             let my_status = post_data.status;
             
             day_label.innerHTML = `
-                Date: ${month}/${label}
+                Date: ${forecast.month}/${forecast.day}
                 <br>
                 <br>
-                Index: ${value}
+                Index: ${forecast.index}
                 <br>
                 <br>
-                Local Status: ${category}
-                My Status: ${my_status}
+                Status: ${post_data.status}
             `;
         });
     }

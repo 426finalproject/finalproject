@@ -23,6 +23,9 @@ export class FeedView {
         let submit = document.createElement('button');
         submit.textContent = 'Post';
         submit.addEventListener('click', async (event) => {
+            if (input.value.trim() === '') {
+                return;
+            }
             await fetch('http://localhost:3000/comments', {
                 method: 'POST',
                 body: JSON.stringify({text: input.value.trim()}),
@@ -53,24 +56,25 @@ export class FeedView {
         let comments = await (await fetch('http://localhost:3000/comments')).json();
 
         comment_div.innerHTML = '';
-        comments.forEach(comment => {
+        comments.reverse().forEach(comment => {
             let commentP = document.createElement('p');
             commentP.textContent = comment.text;
             commentP.classList.add('comment');
 
-            let remove_b = document.createElement('button');
-            remove_b.textContent = 'Delete :<';
-            remove_b.classList.add('delete_button');
+            let delete_button = document.createElement('button');
+            delete_button.classList.add('delete_button');
+            delete_button.classList.add('small_button');
+            delete_button.textContent = 'Delete';
 
-            remove_b.addEventListener('click', async (event) => {
-                let fetch_result = await fetch('http://localhost:3000/comments', {
+            delete_button.addEventListener('click', async (event) => {
+                await fetch('http://localhost:3000/comments', {
                     method: 'DELETE',
                     body: JSON.stringify(comment),
                     headers: {'Content-Type': 'application/json'}
                 });
             });
 
-            commentP.append(remove_b);
+            commentP.append(delete_button);
             comment_div.append(commentP);
         });
     }
