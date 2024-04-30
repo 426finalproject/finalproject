@@ -127,11 +127,20 @@ label {
     background: var(--white);
     border-radius: 10px;
     border: 5px solid var(--black);
+    position: relative;
 }
 
 .comment-label {
     margin: 10px;
     padding: 5px;
+}
+
+.delete_button {
+    position:absolute;
+    bottom:15px;
+    left:0;
+    right:0;
+    text-align:center
 }
 
 /* Mobile */
@@ -140,3 +149,4 @@ label {
         flex-direction: column;
     }
 }
+

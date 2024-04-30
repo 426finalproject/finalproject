@@ -59,10 +59,10 @@ app.post('/comments', async (req, res) => {
 
 app.delete('/comments', async (req, res) => {
     let comment = await Comment.removeComments(req.body.id);     //returns true or false
-    if (!comment) {
-        res.status(400).send("Bad request");
-        return;
-    }
+    // if (!comment) {
+    //     res.status(400).send("Bad request");
+    //     return;
+    // }
     res.json(comment);
 })
 
