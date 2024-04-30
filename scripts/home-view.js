@@ -20,13 +20,13 @@ export class HomeView {
         // Event Listener
         button5.addEventListener('click', async () => {
             // Change Background
-            body.style.backgroundImage = `url('../forecast-screen.png')`;
+            body.style.backgroundImage = `url('https://426finalproject.github.io/finalproject/forecast-screen.png')`;
             // Hiding
             title_div.style.display = 'none';
             title.style.display = 'none';
             button5.style.display = 'none';
             // Audio
-            let audio = new Audio('../marys-theme.mp3');
+            let audio = new Audio('https://426finalproject.github.io/finalproject/marys-theme.mp3');
             audio.play();
             // API
             let forecast_data = await this.getForecasts();
@@ -112,7 +112,7 @@ export class HomeView {
 
     showMore(render_div, forecast_data_specific) {
         // Header
-        let text = "1-Day Pollen Forecast";
+        let text = `${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
         this.createHeader(render_div, text);
 
         // Forecast Div
