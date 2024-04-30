@@ -1,6 +1,6 @@
 import {db} from './db.mjs';
 
-export class Status {
+export class Symptom {
 
     #id
     #text
@@ -16,9 +16,9 @@ export class Status {
         }
 
         try {
-            let status = await db.get('select * from statuses where id = ?', id);
-            if (!status) {
-                // If not found, return empty status
+            let symptom = await db.get('select * from symptoms where id = ?', id);
+            if (!symptom) {
+                // If not found, return empty symptom
                 return {
                     id: -1,
                     text: ''
@@ -26,8 +26,8 @@ export class Status {
             }
 
             return {
-                id: status.id,
-                text: status.text
+                id: symptom.id,
+                text: symptom.text
             }
         } catch(e) {
             return null;
@@ -40,14 +40,14 @@ export class Status {
         }
         
         try {
-            // If status already exists
-            let status = await db.get('select * from statuses where id = ?', id);
-            if (status) {
+            // If symptom already exists
+            let symptom = await db.get('select * from symptoms where id = ?', id);
+            if (symptom) {
                 return null;
             }
 
-            // Create new status
-            let db_result = await db.run('insert into statuses values (?, ?)', id, text);
+            // Create new symptom
+            let db_result = await db.run('insert into symptoms values (?, ?)', id, text);
             if (!db_result) {
                 return null;
             }
@@ -67,7 +67,7 @@ export class Status {
         }
         
         try {
-            await db.run('update statuses set text = ? where id = ?', text, id);
+            await db.run('update symptoms set text = ? where id = ?', text, id);
             return {
                 id: id,
                 text: text

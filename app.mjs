@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import {Forecast} from './forecast.mjs';
-import {Status} from './status.mjs'
+import {Symptom} from './symptom.mjs'
 import {Comment} from './comment.mjs';
 
 const app = express();
@@ -29,31 +29,31 @@ app.get('/forecast/:id', async (req, res) => {
     res.json(forecast);
 });
 
-app.get('/status/:id', async (req, res) => {
-    let status = await Status.getText(req.params.id);
-    if (!status) {
-        res.status(500).send('Unable to retreive status');
+app.get('/symptom/:id', async (req, res) => {
+    let symptom = await Symptom.getText(req.params.id);
+    if (!symptom) {
+        res.status(500).send('Unable to retreive symptom');
         return;
     }
-    res.json(status);
+    res.json(symptom);
 });
 
-app.post('/status/:id', async (req, res) => {
-    let status = await Status.setText(req.params.id, req.body.text);
-    if (!status) {
+app.post('/symptom/:id', async (req, res) => {
+    let symptom = await Symptom.setText(req.params.id, req.body.text);
+    if (!symptom) {
         res.status(400).send('Bad request');
         return;
     }
-    res.status(201).json(status);
+    res.status(201).json(symptom);
 });
 
-app.put('/status/:id', async (req, res) => {
-    let status = await Status.updateText(req.params.id, req.body.text);
-    if (!status) {
+app.put('/symptom/:id', async (req, res) => {
+    let symptom = await Symptom.updateText(req.params.id, req.body.text);
+    if (!symptom) {
         res.status(400).send('Bad request');
         return;
     }
-    res.json(status);
+    res.json(symptom);
 });
 
 app.get('/comments', async (req, res) => {
