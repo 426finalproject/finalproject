@@ -28,6 +28,24 @@ app.get('/forecast/:id', async (req, res) => {
     res.json(forecast);
 });
 
+app.post('/forecast/:id', async (req, res) => {
+    let status = await Status.setStatus(req.params.id, req.body.text);
+    if (!status) {
+        res.status(400).send("Bad request");
+        return;
+    }
+    res.status(201).json(status);
+});
+
+app.put('/forecast/:id', async (req, res) => {
+    let status = await Status.updateStatus(req.params.id, req.body.text);
+    if (!status) {
+        res.status(400).send("Bad request");
+        return;
+    }
+    res.json(status);
+});
+
 app.get('/comments', async (req, res) => {
     let comments = await Comment.getComments();
     if(!comments) {

@@ -1,5 +1,5 @@
-import {db} from './db.mjs';
 export class Forecast {
+
     #month
     #day
     #index
