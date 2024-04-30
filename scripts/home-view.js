@@ -95,7 +95,7 @@ export class HomeView {
                 Index: ${value}
                 <br>
                 <br>
-                Status: ${category}
+                Local Status: ${category}
             `;
 
             // See more button
@@ -121,16 +121,13 @@ export class HomeView {
             
             // Post button
             let post_button = document.createElement('button');
-            post_button.textContent= 'Set status';
+            post_button.textContent= 'Post your status';
             post_button.style.padding = '5px';
             post_button.style.borderRadius = '10px';
             post_button.addEventListener('click', async () => {
                 // Hiding
-                while(render_div.firstChild) {
-                    render_div.removeChild(render_div.firstChild);
-                }
                 let post_data = await this.postStatus(i);
-                this.showStatus(render_div, post_data);
+                this.showStatus(render_div, forecast_data, post_data);
             });
 
             day.append(day_label);
@@ -213,8 +210,31 @@ export class HomeView {
         render_div.append(forecast_div);
     }
 
-    showStatus(render_div, post_data) {
+    showStatus(render_div, forecast_data, post_data) {
+        forecast_data.forEach((forecast, i) => {
+            let day = document.createElement('div');
+            day.classList.add('day');
+            let day_label = document.createElement('div');
+            day_label.classList.add('day-label');
 
+            // Data
+            let month = forecast.month;
+            let label = forecast.day;
+            let value = forecast.index;
+            let category = forecast.category;
+            let my_status = post_data.status;
+            
+            day_label.innerHTML = `
+                Date: ${month}/${label}
+                <br>
+                <br>
+                Index: ${value}
+                <br>
+                <br>
+                Local Status: ${category}
+                My Status: ${my_status}
+            `;
+        });
     }
 
     createHeader(render_div, text) {
