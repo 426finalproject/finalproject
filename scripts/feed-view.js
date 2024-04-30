@@ -26,7 +26,7 @@ export class FeedView {
             await fetch('http://localhost:3000/comments', {
                 method: 'POST',
                 body: {
-                    comment: input.value.trim()
+                    text: input.value.trim()
                 },
                 headers: {
                     'Content-Type': 'application/json'
