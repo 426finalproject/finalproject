@@ -57,6 +57,15 @@ export class HomeView {
         return result_json;
     }
 
+    async postStatus(post) {
+        let fetch_result = await fetch(`http://localhost:3000/forecast/`);  // send HTTP GET request to /forecast endpoint
+        if (!fetch_result.ok) {
+            console.log("Failed to postStatus!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
+    }
+
     show5DayForecast(render_div, forecast_data) {
         // Header
         let text = "5-Day Pollen Forecast";
@@ -89,12 +98,13 @@ export class HomeView {
                 Status: ${category}
             `;
 
-            let button1 = document.createElement('button');
-            button1.setAttribute('id', 'day'+i)
-            button1.textContent= 'See more';
-            button1.style.padding = '5px';
-            button1.style.borderRadius = '10px';
-            button1.addEventListener('click', async () => {
+            // See more button
+            let more_button = document.createElement('button');
+            more_button.setAttribute('id', 'day'+i)
+            more_button.textContent= 'See more';
+            more_button.style.padding = '5px';
+            more_button.style.borderRadius = '10px';
+            more_button.addEventListener('click', async () => {
                 // Hiding
                 while(render_div.firstChild) {
                     render_div.removeChild(render_div.firstChild);
@@ -103,8 +113,30 @@ export class HomeView {
                 this.showMore(render_div, forecast_data_specific);
                 
             });
+
+            // Post input
+            let status_input = document.createElement('input');
+            status_input.setAttribute('type', 'text');
+            status_input.setAttribute('id', 'status_input')
+            
+            // Post button
+            let post_button = document.createElement('button');
+            post_button.textContent= 'Post status';
+            post_button.style.padding = '5px';
+            post_button.style.borderRadius = '10px';
+            post_button.addEventListener('click', async () => {
+                // Hiding
+                while(render_div.firstChild) {
+                    render_div.removeChild(render_div.firstChild);
+                }
+                let post_data = await this.postStatus(i);
+                this.showStatus(render_div, post_data);
+            });
+
             day.append(day_label);
-            day.append(button1);
+            day.append(status_input);
+            day.append(post_button);
+            day.append(more_button);
             forecast_div.append(day);
         });
         render_div.append(forecast_div);
@@ -179,6 +211,10 @@ export class HomeView {
         day.append(back_button);
         forecast_div.append(day);
         render_div.append(forecast_div);
+    }
+
+    showStatus(render_div, post_data) {
+
     }
 
     createHeader(render_div, text) {
