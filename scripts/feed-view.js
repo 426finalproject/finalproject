@@ -67,17 +67,12 @@ export class FeedView {
             remove_b.textContent = 'Delete :<';
             remove_b.classList.add('delete_button');
 
-//            remove_b.setAttribute('id', 'remove_button');
-
             remove_b.addEventListener('click', async (event) => {
                 let fetch_result = await fetch('http://localhost:3000/comments', {
                     method: 'DELETE',
                     body: comment,
                     headers: {'Content-Type': 'application/json'}
                 });
-                // if (!fetch_result.ok) {
-                //     alert(fetch_result);
-                // }
             
             });
 
