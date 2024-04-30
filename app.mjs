@@ -22,7 +22,7 @@ app.get('/forecast', async (req, res) => {
 app.get('/forecast/:id', async (req, res) => {
     let forecast = await Forecast.getDay(req.params.id);
     if (!forecast) {
-        res.status(500).send("Unable to retreive forecasts");
+        res.status(500).send("Unable to retreive forecast");
         return;
     }
     res.json(forecast);
@@ -47,12 +47,12 @@ app.post('/comments', async (req, res) => {
 })
 
 app.delete('/comments', async (req, res) => {
-    let comment = await Comment.removeComments(req.body.id);     //returns true or false
-    if (!comment) {
+    let successful = await Comment.removeComment(req.body.id); // true or false
+    if (!successful) {
         res.status(400).send("Bad request");
         return;
     }
-    res.json(comment);
+    res.json(successful);
 })
 
 app.listen(port, () => {

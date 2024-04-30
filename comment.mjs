@@ -43,7 +43,7 @@ export class Comment {
         }
     }
     
-    static async removeComments(id){
+    static async removeComment(id) {
         try {
             await db.run('delete from comments where id=?', id);
         } catch (e) {
