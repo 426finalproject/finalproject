@@ -11,12 +11,16 @@ export class Status {
     }
 
     static async getText(id) {
-        try{
+        if (id < 0 || id > 4) {
+            return null;
+        }
+
+        try {
             let status = await db.get('select text from statuses where id = ?', id);
             if (!status) {
                 // If not found, return empty status
                 return {
-                    id: '',
+                    id: -1,
                     text: ''
                 }
             }
@@ -31,7 +35,12 @@ export class Status {
     }
 
     static async setText(id, text) {
+        if (id < 0 || id > 4) {
+            return null;
+        }
+        
         try {
+            console.log(`Checkpoint 1: ${id} ${text}`);
             let db_result = await db.run('insert into statuses values (?, ?)', id, text);
             if (!db_result) {
                 return null;
@@ -47,6 +56,10 @@ export class Status {
     }
 
     static async updateText(id, text) {
+        if (id < 0 || id > 4) {
+            return null;
+        }
+        
         try {
             await db.run('update statuses set text = ? where id = ?', text, id);
             return {

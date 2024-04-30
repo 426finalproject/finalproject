@@ -29,10 +29,10 @@ app.get('/forecast/:id', async (req, res) => {
     res.json(forecast);
 });
 
-app.get('/status', async (req, res) => {
-    let status = await Status.getText(req.body.id);
+app.get('/status/:id', async (req, res) => {
+    let status = await Status.getText(req.params.id);
     if (!status) {
-        res.status(500).send('Unable to retreive statuses');
+        res.status(500).send('Unable to retreive status');
         return;
     }
     res.json(status);
@@ -82,6 +82,8 @@ app.delete('/comments', async (req, res) => {
     }
     res.json(successful);
 })
+
+Status.setText(0, "HI")
 
 app.listen(port, () => {
     console.log('Running...');
