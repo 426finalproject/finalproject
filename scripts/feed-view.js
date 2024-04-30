@@ -23,15 +23,16 @@ export class FeedView {
         let submit = document.createElement('button');
         submit.textContent = 'Post';
         submit.addEventListener('click', async (event) => {
-            await fetch('http://localhost:3000/comments', {
+            let fetch_result = await fetch('http://localhost:3000/comments', {
                 method: 'POST',
-                body: {
-                    text: input.value.trim()
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                body: JSON.stringify({text: input.value.trim()}),
+                headers: {'Content-Type': 'application/json'}
             });
+            if (!fetch_result.ok) {
+                alert(fetch_result);
+            }
+            let result_json = await fetch_result.json();
+            report_div.p('Received:<br><pre>' + JSON.stringify(result_json) + '</pre>');
             this.showComments(document.querySelector('.comment-holder'));
         });
         render_div.append(document.createElement('br'));
