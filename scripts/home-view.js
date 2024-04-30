@@ -57,6 +57,15 @@ export class HomeView {
         return result_json;
     }
 
+    async postStatus(post) {
+        let fetch_result = await fetch(`http://localhost:3000/forecast/`);  // send HTTP GET request to /forecast endpoint
+        if (!fetch_result.ok) {
+            console.log("Failed to postStatus!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
+    }
+
     show5DayForecast(render_div, forecast_data) {
         // Header
         let text = "5-Day Pollen Forecast";
@@ -89,6 +98,7 @@ export class HomeView {
                 Status: ${category}
             `;
 
+            // See more button
             let button1 = document.createElement('button');
             button1.setAttribute('id', 'day'+i)
             button1.textContent= 'See more';
@@ -103,8 +113,23 @@ export class HomeView {
                 this.showMore(render_div, forecast_data_specific);
                 
             });
+            // Post button
+            let post_button = document.createElement('button');
+            post_button.textContent= 'Post';
+            post_button.style.padding = '5px';
+            post_button.style.borderRadius = '10px';
+            post_button.addEventListener('click', async () => {
+                // Hiding
+                while(render_div.firstChild) {
+                    render_div.removeChild(render_div.firstChild);
+                }
+                let post_data = await this.postStatus(i);
+                this.showStatus(render_div, post_data);
+            });
+
             day.append(day_label);
             day.append(button1);
+            day.append(post_button);
             forecast_div.append(day);
         });
         render_div.append(forecast_div);
@@ -179,6 +204,10 @@ export class HomeView {
         day.append(back_button);
         forecast_div.append(day);
         render_div.append(forecast_div);
+    }
+
+    showStatus(render_div, post_data) {
+        
     }
 
     createHeader(render_div, text) {

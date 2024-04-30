@@ -114,16 +114,18 @@ label {
 /* Comments */
 .comment-holder {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 5vh;
 }
 
 .comment {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     display: flex;
-    flex-direction: column;
     flex: 1;
     margin: 15px;
-    min-height: 30vh;
+    min-height: 10vh;
     background: var(--white);
     border-radius: 10px;
     border: 5px solid var(--black);
