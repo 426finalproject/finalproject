@@ -1,9 +1,8 @@
 export class Forecast {
-
     #month
     #day
     #index
-    #category
+    #status
     #description
 
     // Arrays
@@ -12,11 +11,11 @@ export class Forecast {
 
     static #forecasts = []
 
-    constructor (month, day, index, category, description, healthRecs, plants) {
+    constructor (month, day, index, status, description, healthRecs, plants) {
         this.#month = month;
         this.#day = day;
         this.#index = index;
-        this.#category = category;
+        this.#status = status;
         this.#description = description;
         this.#healthRecs = healthRecs;
         this.#plants = plants;
@@ -34,7 +33,7 @@ export class Forecast {
                 month: forecast.#month,
                 day: forecast.#day,
                 index: forecast.#index,
-                category: forecast.#category
+                status: forecast.#status
             }
         });
     }
@@ -51,7 +50,7 @@ export class Forecast {
             month: result.#month,
             day: result.#day,
             index: result.#index,
-            category: result.#category,
+            status: result.#status,
             description: result.#description,
             healthRecs: result.#healthRecs,
             plants: result.#plants

@@ -90,7 +90,7 @@ export class HomeView {
                 Index: ${forecast.index}
                 <br>
                 <br>
-                Status: ${forecast.category}
+                Status: ${forecast.status}
             `;
 
             // See more button
@@ -212,12 +212,6 @@ export class HomeView {
             day_label.classList.add('day-label');
 
             // Data
-            let month = forecast.month;
-            let label = forecast.day;
-            let value = forecast.index;
-            let category = forecast.category;
-            let my_status = post_data.status;
-            
             day_label.innerHTML = `
                 Date: ${forecast.month}/${forecast.day}
                 <br>
