@@ -23,10 +23,6 @@ export class FeedView {
         let submit = document.createElement('button');
         submit.textContent = 'Post';
         submit.addEventListener('click', async (event) => {
-
-            // Not working
-            input.innerHTML = '';
-
             await fetch('http://localhost:3000/comments', {
                 method: 'POST',
                 body: {
@@ -59,7 +55,7 @@ export class FeedView {
 
     async showComments(comment_div) {
         let comments = await (await fetch('http://localhost:3000/comments')).json();
-        
+
         comment_div.innerHTML = '';
         comments.forEach(comment => {
             let commentP = document.createElement('p');
