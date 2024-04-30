@@ -97,6 +97,10 @@ button:hover {
     background-color: var(--accent-yellow);
 }
 
+#back_button {
+    padding: 5px;
+}
+
 /* Forecasts */
 .forecast {
     display: flex;

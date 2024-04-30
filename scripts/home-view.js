@@ -95,6 +95,7 @@ export class HomeView {
             button1.style.padding = '5px';
             button1.style.borderRadius = '10px';
             button1.addEventListener('click', async () => {
+                // Hiding
                 while(render_div.firstChild) {
                     render_div.removeChild(render_div.firstChild);
                 }
@@ -156,7 +157,26 @@ export class HomeView {
             Plants To Watch Out For: ${plantsString}
         `;
 
+        // Button
+        let button_div = document.createElement('div');
+        button_div.classList.add('button');
+        let back_button = document.createElement('button');
+        back_button.setAttribute('id', 'back_button');
+        back_button.textContent= 'Back';
+
+        // Event Listener
+        back_button.addEventListener('click', async () => {
+            // Hiding
+            while(render_div.firstChild) {
+                render_div.removeChild(render_div.firstChild);
+            }
+            // API
+            let forecast_data = await this.getForecasts();
+            this.show5DayForecast(render_div, forecast_data);
+        });
+
         day.append(day_label);
+        day.append(back_button);
         forecast_div.append(day);
         render_div.append(forecast_div);
     }
