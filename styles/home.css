@@ -137,7 +137,7 @@ button:hover {
 .forecast2 {
     display: flex;
     flex-direction: row;
-    padding: 7.5vh;
+    padding-top: 7.5vh;
 }
 
 .day {
@@ -154,6 +154,13 @@ button:hover {
 .day-label {
     margin: 10px;
     padding: 5px;
+}
+
+.post_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Mobile */
