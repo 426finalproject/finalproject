@@ -25,6 +25,7 @@ export class HomeView {
             title_div.style.display = 'none';
             title.style.display = 'none';
             button5.style.display = 'none';
+            bee_div.style.display = 'none';
             // Audio
             let audio = new Audio('https://426finalproject.github.io/finalproject/marys-theme.mp3');
             audio.play();
@@ -35,6 +36,17 @@ export class HomeView {
 
         button_div.append(button5);
         render_div.append(button_div);
+
+        let bee_div = document.createElement('div');
+        bee_div.classList.add('bee_div');
+
+        for (let i=0; i < 3; i++) {
+            let bee = document.createElement('img');
+            bee.classList.add('bee');
+            bee.src = 'bee.gif';
+            bee_div.append(bee);
+        }
+        render_div.append(bee_div)
     }
 
     // Async function to call API
@@ -140,7 +152,7 @@ export class HomeView {
 
         // Forecast Div
         let forecast_div = document.createElement('div');
-        forecast_div.classList.add('forecast');
+        forecast_div.classList.add('forecast2');
      
         // Forcasts
         let day = document.createElement('div');
