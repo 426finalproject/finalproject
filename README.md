@@ -1,4 +1,4 @@
-# Final Project
+# Allergy Forecaster
 
 For our final project, we wanted to create an Allergy Forecast Web Application. 
 
