@@ -119,21 +119,28 @@ label {
 }
 
 .comment {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
     display: flex;
+    flex-direction: column;
     flex: 1;
     margin: 15px;
-    min-height: 10vh;
+    min-height: 30vh;
     background: var(--white);
     border-radius: 10px;
     border: 5px solid var(--black);
+    position: relative;
 }
 
 .comment-label {
     margin: 10px;
     padding: 5px;
+}
+
+.delete_button {
+    position:absolute;
+    bottom:15px;
+    left:0;
+    right:0;
+    text-align:center
 }
 
 /* Mobile */

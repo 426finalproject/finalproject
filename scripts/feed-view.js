@@ -57,6 +57,20 @@ export class FeedView {
             let commentP = document.createElement('p');
             commentP.textContent = comment.text;
             commentP.classList.add('comment');
+
+            let remove_b = document.createElement('button');
+            remove_b.textContent = 'Delete :<';
+            remove_b.classList.add('delete_button');
+
+            remove_b.addEventListener('click', async (event) => {
+                let fetch_result = await fetch('http://localhost:3000/comments', {
+                    method: 'DELETE',
+                    body: JSON.stringify(comment),
+                    headers: {'Content-Type': 'application/json'}
+                });
+            });
+
+            commentP.append(remove_b);
             comment_div.append(commentP);
         });
     }
