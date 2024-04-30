@@ -67,7 +67,7 @@ h1 {
 /* Title */
 .title {
     text-align: center;
-    padding-top: 45vh;
+    padding-top: 40vh;
 }
 
 /* Header */
@@ -131,13 +131,13 @@ button:hover {
 .forecast {
     display: flex;
     flex-direction: row;
-    padding: 5vh;
+    padding: 12.5vh;
 }
 
 .forecast2 {
     display: flex;
     flex-direction: row;
-    padding: 12.5vh;
+    padding: 7.5vh;
 }
 
 .day {
