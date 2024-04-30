@@ -29,7 +29,7 @@ app.get('/forecast/:id', async (req, res) => {
 });
 
 app.post('/forecast/:id', async (req, res) => {
-    let status = await Status.setStatus(req.params.id, req.body.text);
+    let status = await Status.setText(req.params.id, req.body.text);
     if (!status) {
         res.status(400).send("Bad request");
         return;
@@ -38,7 +38,7 @@ app.post('/forecast/:id', async (req, res) => {
 });
 
 app.put('/forecast/:id', async (req, res) => {
-    let status = await Status.updateStatus(req.params.id, req.body.text);
+    let status = await Status.updateText(req.params.id, req.body.text);
     if (!status) {
         res.status(400).send("Bad request");
         return;
