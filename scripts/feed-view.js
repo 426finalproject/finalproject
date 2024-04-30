@@ -12,7 +12,7 @@ export class FeedView {
         render_div.append(input_label);
         render_div.append(document.createElement('br'));
         
-        // Input (for name)
+        // Input (for comment)
         let input = document.createElement('input');
         input.setAttribute('type', 'text');
         input.setAttribute('id', 'input')
@@ -22,9 +22,17 @@ export class FeedView {
         // Submit
         let submit = document.createElement('button');
         submit.textContent = 'Post';
-        submit.addEventListener('click', (event) => {
-            let comment_text = input.value.trim();
-            showComments(comment_text, render_div);
+        submit.addEventListener('click', async (event) => {
+            await fetch('http://localhost:3000/comments', {
+                method: 'POST',
+                body: {
+                    comment: input.value.trim()
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            this.showComments(document.querySelector('.comment-holder'));
         });
         render_div.append(document.createElement('br'));
         render_div.append(submit);
@@ -32,6 +40,7 @@ export class FeedView {
         let comment_div = document.createElement('div');
         comment_div.classList.add('comment-holder');
         render_div.append(comment_div);
+        this.showComments(comment_div);
     }
 
     createHeader(render_div, text) {
@@ -43,12 +52,14 @@ export class FeedView {
         render_div.append(header_div);
     }
 
-    showComments(comment_text, render_div, comment_div) {
-        let comment = document.createElement('p');
-        comment.textContent = comment_text;
-        comment.classList.add('comment');
-
-        comment_div.add(comment);
-        render_div.add(comment_div);
+    async showComments(comment_div) {
+        comment_div.innerHTML = '';
+        let comments = await (await fetch('http://localhost:3000/comments')).json();
+        comments.forEach(comment => {
+            let commentP = document.createElement('p');
+            commentP.textContent = comment.text;
+            commentP.classList.add('comment');
+            comment_div.add(commentP);
+        });
     }
 }
