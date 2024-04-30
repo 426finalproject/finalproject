@@ -10,7 +10,7 @@
 
 body {
     background-color: var(--background);
-    background-image: url('/welcome-screen.png');
+    background-image: url('../welcome-screen.png');
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
@@ -95,6 +95,10 @@ button {
 
 button:hover {
     background-color: var(--accent-yellow);
+}
+
+#back_button {
+    padding: 5px;
 }
 
 /* Forecasts */

@@ -20,13 +20,13 @@ export class HomeView {
         // Event Listener
         button5.addEventListener('click', async () => {
             // Change Background
-            body.style.backgroundImage = `url('../assets/forecast-screen.png')`;
+            body.style.backgroundImage = `url('../forecast-screen.png')`;
             // Hiding
             title_div.style.display = 'none';
             title.style.display = 'none';
             button5.style.display = 'none';
             // Audio
-            let audio = new Audio('../assets/marys-theme.mp3');
+            let audio = new Audio('../marys-theme.mp3');
             audio.play();
             // API
             let forecast_data = await this.getForecasts();
@@ -39,7 +39,7 @@ export class HomeView {
 
     // Async function to call API
     async getForecasts() {
-        let fetch_result = await fetch('/forecast');  // send HTTP GEt request to /forecast endpoint
+        let fetch_result = await fetch('http://localhost:3000/forecast');  // send HTTP GET request to /forecast endpoint
         if (!fetch_result.ok) {
             console.log("Failed to getForecasts!");
         }
@@ -49,7 +49,7 @@ export class HomeView {
 
     // Async function to call API with ID
     async getForecastsId(specific) {
-        let fetch_result = await fetch(`/forecast/${specific}`);  // send HTTP GET request to /forecast endpoint
+        let fetch_result = await fetch(`http://localhost:3000/forecast/${specific}`);  // send HTTP GET request to /forecast endpoint
         if (!fetch_result.ok) {
             console.log("Failed to getForecasts!");
         }
@@ -95,6 +95,7 @@ export class HomeView {
             button1.style.padding = '5px';
             button1.style.borderRadius = '10px';
             button1.addEventListener('click', async () => {
+                // Hiding
                 while(render_div.firstChild) {
                     render_div.removeChild(render_div.firstChild);
                 }
@@ -135,10 +136,16 @@ export class HomeView {
         });
 
         let plantsString = ""
-        plants.forEach(plant => {
-            plantsString += plant + ", ";
-        });
+        let plantLength = plants.length;
+        for (let i=0; i < plantLength; i++) {
+            if (i != plantLength - 1) {
+                plantsString += plants[i] + ", ";
 
+            }
+            else {
+                plantsString += plants[i]
+            }
+        }
         
         day_label.innerHTML = `
             Description: ${indexDescription}
@@ -147,10 +154,29 @@ export class HomeView {
             Health Recommendation: ${healthRecommendationsString}
             <br>
             <br>
-            Plants: ${plantsString}
+            Plants To Watch Out For: ${plantsString}
         `;
 
+        // Button
+        let button_div = document.createElement('div');
+        button_div.classList.add('button');
+        let back_button = document.createElement('button');
+        back_button.setAttribute('id', 'back_button');
+        back_button.textContent= 'Back';
+
+        // Event Listener
+        back_button.addEventListener('click', async () => {
+            // Hiding
+            while(render_div.firstChild) {
+                render_div.removeChild(render_div.firstChild);
+            }
+            // API
+            let forecast_data = await this.getForecasts();
+            this.show5DayForecast(render_div, forecast_data);
+        });
+
         day.append(day_label);
+        day.append(back_button);
         forecast_div.append(day);
         render_div.append(forecast_div);
     }
