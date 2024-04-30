@@ -1,4 +1,5 @@
 export class Forecast {
+
     #month
     #day
     #index
