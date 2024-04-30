@@ -9,16 +9,16 @@ export class Comment {
         this.#text = text;
     }
 
-    static async create(data) {
+    static async create(text) {
         try {
-            let db_result = await db.run('insert into comments values (NULL, ?)', data.text);
+            let db_result = await db.run('insert into comments values (NULL, ?)', text);
             if (!db_result) {
                 return null;
             }
 
             return {
                 id: db_result.lastID,
-                text: data.text
+                text: text
             }
         } catch (e) {
             return null;
