@@ -2,26 +2,23 @@ import {db} from './db.mjs';
 export class Comment {
 
     #id
-    #name
-    #comment
+    #text
 
-    constructor (id, name, comment) {
+    constructor (id, text) {
         this.#id = id;
-        this.#name = name;
-        this.#comment = comment;
+        this.#text = text;
     }
 
     static async create(data) {
         try {
-            let db_result = await db.run('insert into comments values (NULL, ?, ?)', data.name, data.comment);
+            let db_result = await db.run('insert into comments values (NULL, ?)', data.text);
             if (!db_result) {
                 return null;
             }
 
             return {
                 id: db_result.lastID,
-                name: data.name,
-                comment: data.comment
+                text: data.text
             }
         } catch (e) {
             return null;
@@ -35,11 +32,10 @@ export class Comment {
                 return null;
             }
 
-            return all_comments.map(each_person => {
+            return all_comments.map(comment => {
                 return {
-                    id: each_person.id,
-                    name: each_person.name,
-                    comment: each_person.comment
+                    id: comment.id,
+                    text: comment.text,
                 }
             });
         } catch (e) {
