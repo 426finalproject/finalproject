@@ -67,6 +67,13 @@ export class Symptom {
         }
         
         try {
+            // If symptom does not exist
+            let symptom = await db.get('select * from symptoms where id = ?', id);
+            if (!symptom) {
+                return null;
+            }
+
+            // Update symptom
             await db.run('update symptoms set text = ? where id = ?', text, id);
             return {
                 id: id,
