@@ -132,6 +132,7 @@ label {
     border-radius: 10px;
     border: 5px solid var(--black);
     position: relative;
+    width: 75%;
 }
 
 .delete_button {

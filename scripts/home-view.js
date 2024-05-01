@@ -100,7 +100,7 @@ export class HomeView {
 
     showMore(render_div, forecast_data_specific, id) {
         // Header
-        let text = `📆 ${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
+        let text = `🗓️ ${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
         this.createHeader(render_div, text);
 
         // Forecast Div
