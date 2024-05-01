@@ -234,7 +234,6 @@ export class HomeView {
         
         // Post button
         let post_button = document.createElement('button');
-        post_button.classList.add('small_button');
         post_button.textContent = 'Post your symptoms';
         post_button.addEventListener('click', async () => {
             // Hiding
