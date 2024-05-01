@@ -242,7 +242,7 @@ export class HomeView {
                 render_div.removeChild(render_div.firstChild);
             }
             let get_symptom_data = await this.getSymptom(id);
-            let postPut = checkPostPut(get_symptom_data);
+            let postPut = this.checkPostPut(get_symptom_data);
 
             if (postPut) {  // post
                 let post_data = await this.postSymptom(id);
