@@ -49,64 +49,6 @@ export class HomeView {
         render_div.append(bee_div)
     }
 
-    // Async function to get info from 3rd-party API
-    async getForecasts() {
-        let fetch_result = await fetch('http://localhost:3000/forecast');  // send HTTP GET request to /forecast endpoint
-        if (!fetch_result.ok) {
-            console.log("Failed to getForecasts!");
-        }
-        let result_json = await fetch_result.json();
-        return result_json;
-    }
-
-    // Async function to get info from 3rd-party API with ID
-    async getForecastsId(specific) {
-        let fetch_result = await fetch(`http://localhost:3000/forecast/${specific}`);  // send HTTP GET request to /forecast endpoint
-        if (!fetch_result.ok) {
-            console.log("Failed to getForecasts!");
-        }
-        let result_json = await fetch_result.json();
-        return result_json;
-    }
-
-    // Async function to get status
-    async getSymptom(specific) {
-        let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`);
-        if (!fetch_result.ok) {
-            console.log("Failed to getSymptoms!");
-        }
-        let result_json = await fetch_result.json();
-        return result_json;
-    }
-
-    // Async function to post status
-    async postSymptom(specific) {
-        let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`, {
-            method: 'POST',
-            body: JSON.stringify({text: document.querySelector('#symptom_input').value.trim()}),
-            headers: {'Content-Type': 'application/json'}
-        });
-        if (!fetch_result.ok) {
-            console.log("Failed to postSymptoms!");
-        }
-        let result_json = await fetch_result.json();
-        return result_json;
-    }
-
-    // Async function to post status
-    async putSymptom(specific) {
-        let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`, {
-            method: 'PUT',
-            body: JSON.stringify({text: document.querySelector('#symptom_input').value.trim()}),
-            headers: {'Content-Type': 'application/json'}
-        });
-        if (!fetch_result.ok) {
-            console.log("Failed to putSymptoms!");
-        }
-        let result_json = await fetch_result.json();
-        return result_json;
-    }
-
     show5DayForecast(render_div, forecast_data) {
         // Header
         let text = "5-Day Pollen Forecast";
@@ -237,15 +179,34 @@ export class HomeView {
         post_button.textContent = 'Post your symptoms';
         post_button.addEventListener('click', async () => {
             // Hiding
-            while(render_div.firstChild) {
-                render_div.removeChild(render_div.firstChild);
-            }
-            let get_symptom_data = await this.getSymptom(id);
-            let postPut = this.checkPostPut(get_symptom_data);
+            day_label.innerHTML = '';
+            symptom_input.style.display = 'none';
+            post_button.style.display = 'none';
+            
+            let sym_input = document.querySelector('#symptom_input');
+            if (sym_input && sym_input.value.trim() !== '') {  // data validation
 
-            if (postPut) {  // post
-                let post_data = await this.postSymptom(id);
-                day_label.innerHTML = `
+                let get_symptom_data = await this.getSymptom(id);
+                let postPut = this.checkPostPut(get_symptom_data);
+
+                if (postPut) {  // post
+                    let post_data = await this.postSymptom(id);
+                    day_label.innerHTML = `
+                        Description: ${indexDescription}
+                        <br>
+                        <br>
+                        Health Recommendation: ${healthRecommendationsString}
+                        <br>
+                        <br>
+                        Plants To Watch Out For: ${plantsString}
+                        <br>
+                        <br>
+                        Symptoms: ${post_data.text}
+                    `;
+                }
+                else {  // put
+                    let put_data = await this.putSymptom(id);
+                    day_label.innerHTML = `
                     Description: ${indexDescription}
                     <br>
                     <br>
@@ -255,23 +216,9 @@ export class HomeView {
                     Plants To Watch Out For: ${plantsString}
                     <br>
                     <br>
-                    Symptoms: ${post_data.text}
+                    Symptoms: ${put_data.text}
                 `;
-            }
-            else {  // put
-                let put_data = await this.putSymptom(id);
-                day_label.innerHTML = `
-                Description: ${indexDescription}
-                <br>
-                <br>
-                Health Recommendation: ${healthRecommendationsString}
-                <br>
-                <br>
-                Plants To Watch Out For: ${plantsString}
-                <br>
-                <br>
-                Symptoms: ${put_data.text}
-            `;
+                }
             }
         });
 
@@ -299,5 +246,64 @@ export class HomeView {
         header.textContent = text;
         header_div.append(header);
         render_div.append(header_div);
+    }
+
+    // Async function to get info from 3rd-party API
+    async getForecasts() {
+        let fetch_result = await fetch('http://localhost:3000/forecast');  // send HTTP GET request to /forecast endpoint
+        if (!fetch_result.ok) {
+            console.log("Failed to getForecasts!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
+    }
+
+    // Async function to get info from 3rd-party API with ID
+    async getForecastsId(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/forecast/${specific}`);  // send HTTP GET request to /forecast endpoint
+        if (!fetch_result.ok) {
+            console.log("Failed to getForecasts!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
+    }
+
+    // Async function to get status
+    async getSymptom(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`);
+        if (!fetch_result.ok) {
+            console.log("Failed to getSymptoms!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
+    }
+
+    // Async function to post status
+    async postSymptom(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`, {
+            method: 'POST',
+            body: JSON.stringify({text: document.querySelector('#symptom_input').value.trim()}),
+            headers: {'Content-Type': 'application/json'}
+        });
+        if (!fetch_result.ok) {
+            console.log("Failed to postSymptoms!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
+    }
+
+    // Async function to post status
+    async putSymptom(specific) {
+        let sym_input = document.querySelector('#symptom_input').value.trim();
+        let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`, {
+            method: 'PUT',
+            body: JSON.stringify({text: sym_input }),
+            headers: {'Content-Type': 'application/json'}
+        });
+        if (!fetch_result.ok) {
+            console.log("Failed to putSymptoms!");
+        }
+        let result_json = await fetch_result.json();
+        return result_json;
     }
 }
