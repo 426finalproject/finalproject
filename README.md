@@ -9,6 +9,9 @@ Users can get a 5 day pollen forecast as well as get a more detailed allergy for
 
 The Comments Feed allows users to post comments about the website or talk about the allergy reports.
 
+## Demo
+https://youtu.be/btPoCuaHIxs
+
 ## Google Maps Pollen API
 The forecast endpoint provides up to 5 days of daily pollen information. We chose to display the month, day,
 
@@ -19,7 +22,7 @@ Our app routes using the Google Maps Pollen API can either get a 5 day pollen fo
     
 
 ## Comment APIs
-A comment database is used to store and retrieve user posted feedback regarding the pollen prediction website
+A session-persistent comment database is used to store and retrieve user posted feedback regarding the pollen prediction website
 
     GET /comments
     POST /comments
@@ -29,7 +32,7 @@ The user is able to post and delete comments on the Feed page. The Comments API 
 
 
 ## Symptoms API
-A symptoms database is used to store and change a user input symptoms log. For each days' more detailed allergy report, the user is able to report their own allergy symptoms.
+A session-persistent symptoms database is used to store and change a user input symptoms log. For each days' more detailed allergy report, the user is able to report their own allergy symptoms.
 
     GET /symptoms/{id}
     POST /symptoms/{id}
