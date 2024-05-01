@@ -83,7 +83,7 @@ export class HomeView {
     async postSymptom(specific) {
         let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`, {
             method: 'POST',
-            body: JSON.stringify({text: document.querySelector('#symptom_input').value.trim()}),
+            body: JSON.stringify({text: document.getElementById('symptom_input').value.trim()}),
             headers: {'Content-Type': 'application/json'}
         });
         if (!fetch_result.ok) {
@@ -97,7 +97,7 @@ export class HomeView {
     async putSymptom(specific) {
         let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`, {
             method: 'PUT',
-            body: JSON.stringify({text: document.querySelector('#symptom_input').value.trim()}),
+            body: JSON.stringify({text: document.getElementById('symptom_input').value.trim()}),
             headers: {'Content-Type': 'application/json'}
         });
         if (!fetch_result.ok) {
@@ -156,7 +156,7 @@ export class HomeView {
         render_div.append(forecast_div);
     }
 
-    showMore(render_div, forecast_data_specific, id) {
+    async showMore(render_div, forecast_data_specific, id) {
         // Header
         let text = `${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
         this.createHeader(render_div, text);
@@ -165,7 +165,7 @@ export class HomeView {
         let forecast_div = document.createElement('div');
         forecast_div.classList.add('forecast2');
      
-        // Forcasts
+        // Forecasts
         let day = document.createElement('div');
         day.classList.add('day');
         let day_label = document.createElement('div');
@@ -195,6 +195,13 @@ export class HomeView {
             }
         }
         
+        // Symptoms
+        let symptoms = '';
+        let get_symptom_data = await this.getSymptom(id);
+        if (get_symptom_data.id !== -1) {
+            symptoms = get_symptom_data.text;
+        }
+
         day_label.innerHTML = `
             Description: ${indexDescription}
             <br>
@@ -203,6 +210,9 @@ export class HomeView {
             <br>
             <br>
             Plants To Watch Out For: ${plantsString}
+            <br>
+            <br>
+            Symptoms: ${symptoms}
         `;
 
         // Button
@@ -227,7 +237,7 @@ export class HomeView {
         let post_div = document.createElement('div');
         post_div.classList.add('post_div');
 
-        // Post symptoms
+        // Input (for symptoms)
         let symptom_input = document.createElement('input');
         symptom_input.setAttribute('type', 'text');
         symptom_input.setAttribute('id', 'symptom_input')
@@ -236,14 +246,11 @@ export class HomeView {
         let post_button = document.createElement('button');
         post_button.textContent = 'Post your symptoms';
         post_button.addEventListener('click', async () => {
-            // Hiding
-            while(render_div.firstChild) {
-                render_div.removeChild(render_div.firstChild);
+            if (!symptom_input || symptom_input.value.trim() === '') {
+                return;
             }
-            let get_symptom_data = await this.getSymptom(id);
-            let postPut = this.checkPostPut(get_symptom_data);
 
-            if (postPut) {  // post
+            if (get_symptom_data.id === -1) { // post
                 let post_data = await this.postSymptom(id);
                 day_label.innerHTML = `
                     Description: ${indexDescription}
@@ -282,14 +289,6 @@ export class HomeView {
         forecast_div.append(day);
         render_div.append(forecast_div);
         render_div.append(post_div);
-    }
-
-    checkPostPut(get_symptom_data) {
-        let post_or_put = false;  // post = true, put = false
-        if (get_symptom_data.id != -1) {
-            post_or_put = true;
-        }
-        return post_or_put;
     }
 
     createHeader(render_div, text) {
