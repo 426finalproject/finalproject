@@ -98,7 +98,7 @@ export class HomeView {
         render_div.append(forecast_div);
     }
 
-    showMore(render_div, forecast_data_specific, id) {
+    async showMore(render_div, forecast_data_specific, id) {
         // Header
         let text = `🗓️ ${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
         this.createHeader(render_div, text);
@@ -136,6 +136,13 @@ export class HomeView {
                 plantsString += plants[i]
             }
         }
+
+        // Symptoms
+        let symptoms = '';
+        let get_symptom_data = await this.getSymptom(id);
+        if (get_symptom_data.id !== -1) {
+            symptoms = get_symptom_data.text;
+        }
         
         day_label.innerHTML = `
             Description: ${indexDescription}
@@ -145,6 +152,9 @@ export class HomeView {
             <br>
             <br>
             Plants To Watch Out For: ${plantsString}
+            <br>
+            <br>
+            Symptoms: ${symptoms}
         `;
 
         // Button
@@ -299,9 +309,10 @@ export class HomeView {
 
     // Async function to post status
     async postSymptom(specific) {
+        let sym_input = document.querySelector('#symptom_input').value.trim();
         let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`, {
             method: 'POST',
-            body: JSON.stringify({text: document.querySelector('#symptom_input').value.trim()}),
+            body: JSON.stringify({text: sym_input}),
             headers: {'Content-Type': 'application/json'}
         });
         if (!fetch_result.ok) {
