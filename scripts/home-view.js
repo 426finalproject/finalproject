@@ -70,30 +70,38 @@ export class HomeView {
     }
 
     // Async function to get status
-    async getStatus(specific) {
-        let fetch_result = await fetch(`http://localhost:3000/status/${specific}`);  // send HTTP GET request to /forecast endpoint
+    async getSymptom(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`);
         if (!fetch_result.ok) {
-            console.log("Failed to getStatus!");
+            console.log("Failed to getSymptoms!");
         }
         let result_json = await fetch_result.json();
         return result_json;
     }
 
     // Async function to post status
-    async postStatus(specific) {
-        let fetch_result = await fetch(`http://localhost:3000/status/${specific}`);  // send HTTP GET request to /forecast endpoint
+    async postSymptom(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`, {
+            method: 'POST',
+            body: JSON.stringify({text: document.querySelector('#symptom_input').value.trim()}),
+            headers: {'Content-Type': 'application/json'}
+        });
         if (!fetch_result.ok) {
-            console.log("Failed to postStatus!");
+            console.log("Failed to postSymptoms!");
         }
         let result_json = await fetch_result.json();
         return result_json;
     }
 
     // Async function to post status
-    async putStatus(specific) {
-        let fetch_result = await fetch(`http://localhost:3000/status/${specific}`);  // send HTTP GET request to /forecast endpoint
+    async putSymptom(specific) {
+        let fetch_result = await fetch(`http://localhost:3000/symptom/${specific}`, {
+            method: 'PUT',
+            body: JSON.stringify({text: document.querySelector('#symptom_input').value.trim()}),
+            headers: {'Content-Type': 'application/json'}
+        });
         if (!fetch_result.ok) {
-            console.log("Failed to putStatus!");
+            console.log("Failed to putSymptoms!");
         }
         let result_json = await fetch_result.json();
         return result_json;
@@ -220,9 +228,9 @@ export class HomeView {
         post_div.classList.add('post_div');
 
         // Post symptoms
-        let symptoms_input = document.createElement('input');
-        symptoms_input.setAttribute('type', 'text');
-        symptoms_input.setAttribute('id', 'status_input')
+        let symptom_input = document.createElement('input');
+        symptom_input.setAttribute('type', 'text');
+        symptom_input.setAttribute('id', 'symptom_input')
         
         // Post button
         let post_button = document.createElement('button');
@@ -233,73 +241,56 @@ export class HomeView {
             while(render_div.firstChild) {
                 render_div.removeChild(render_div.firstChild);
             }
-            let get_symptom_data = await this.getStatus(id);
-            this.showSymptoms(render_div, forecast_data_specific, get_symptom_data, id);
+            let get_symptom_data = await this.getSymptom(id);
+            let postPut = checkPostPut(get_symptom_data);
+
+            if (postPut) {  // post
+                let post_data = await this.postSymptom(id);
+                day_label.innerHTML = `
+                    Description: ${indexDescription}
+                    <br>
+                    <br>
+                    Health Recommendation: ${healthRecommendationsString}
+                    <br>
+                    <br>
+                    Plants To Watch Out For: ${plantsString}
+                    <br>
+                    <br>
+                    Symptoms: ${post_data.text}
+                `;
+            }
+            else {  // put
+                let put_data = await this.putSymptom(id);
+                day_label.innerHTML = `
+                Description: ${indexDescription}
+                <br>
+                <br>
+                Health Recommendation: ${healthRecommendationsString}
+                <br>
+                <br>
+                Plants To Watch Out For: ${plantsString}
+                <br>
+                <br>
+                Symptoms: ${put_data.text}
+            `;
+            }
         });
 
         day.append(day_label);
         day.append(back_button);
-        post_div.append(symptoms_input);
+        post_div.append(symptom_input);
         post_div.append(post_button);
         forecast_div.append(day);
         render_div.append(forecast_div);
         render_div.append(post_div);
     }
 
-    showSymptoms(render_div, forecast_data_specific, get_symptom_data, id) {
-        
-        // Header
-        let text = `${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
-        this.createHeader(render_div, text);
-
-        // Forecast Div
-        let forecast_div = document.createElement('div');
-        forecast_div.classList.add('forecast2');
-     
-        // Forcasts
-        let day = document.createElement('div');
-        day.classList.add('day');
-        let day_label = document.createElement('div');
-        day_label.classList.add('day-label');
-
-        // Data
-        let indexDescription = forecast_data_specific.description;
-        let healthRecommendations = forecast_data_specific.healthRecs;
-        let plants = forecast_data_specific.plants;
-        let symtoms = get_symptom_data.symtoms;
-
-        // Health Recs
-        let healthRecommendationsString = ""
-        healthRecommendations.forEach(rec => {
-            healthRecommendationsString += rec + "\n";
-        });
-
-        // Plants
-        let plantsString = ""
-        let plantLength = plants.length;
-        for (let i=0; i < plantLength; i++) {
-            if (i != plantLength - 1) {
-                plantsString += plants[i] + ", ";
-
-            }
-            else {
-                plantsString += plants[i]
-            }
+    checkPostPut(get_symptom_data) {
+        let post_or_put = false;  // post = true, put = false
+        if (get_symptom_data.id != -1) {
+            post_or_put = true;
         }
-        
-        day_label.innerHTML = `
-            Description: ${indexDescription}
-            <br>
-            <br>
-            Health Recommendation: ${healthRecommendationsString}
-            <br>
-            <br>
-            Plants To Watch Out For: ${plantsString}
-            <br>
-            <br>
-            Symptoms: ${symtoms}
-        `;
-        render_div.append(forecast_div);
+        return post_or_put;
     }
 
     createHeader(render_div, text) {
