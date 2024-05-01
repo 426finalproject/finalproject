@@ -51,7 +51,7 @@ export class HomeView {
 
     show5DayForecast(render_div, forecast_data) {
         // Header
-        let text = "5-Day Pollen Forecast";
+        let text = "🗓️ 5-Day Pollen Forecast";
         this.createHeader(render_div, text);
 
         // Forecast Div
@@ -70,7 +70,7 @@ export class HomeView {
                 Date: ${forecast.month}/${forecast.day}
                 <br>
                 <br>
-                Index: ${forecast.index}
+                Index: ${forecast.index} ${this.emojiPicker(forecast.index)}
                 <br>
                 <br>
                 Status: ${forecast.status}
@@ -100,7 +100,7 @@ export class HomeView {
 
     showMore(render_div, forecast_data_specific, id) {
         // Header
-        let text = `${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
+        let text = `📆 ${forecast_data_specific.month}/${forecast_data_specific.day} Forecast`;
         this.createHeader(render_div, text);
 
         // Forecast Div
@@ -180,8 +180,7 @@ export class HomeView {
         post_button.addEventListener('click', async () => {
             // Hiding
             day_label.innerHTML = '';
-            symptom_input.style.display = 'none';
-            post_button.style.display = 'none';
+            post_button.textContent = 'Edit your symptoms';
             
             let sym_input = document.querySelector('#symptom_input');
             if (sym_input && sym_input.value.trim() !== '') {  // data validation
@@ -246,6 +245,26 @@ export class HomeView {
         header.textContent = text;
         header_div.append(header);
         render_div.append(header_div);
+    }
+
+    emojiPicker(index) {
+        let emoji5 = '🤬';
+        let emoji4 = '😫';
+        let emoji3 = '😒';
+        let emoji2 = '🙂';
+        let emoji1 = '🥳';
+
+        if (index <= 1) {
+            return emoji1;
+        } else if (index == 2) {
+            return emoji2;
+        } else if (index == 3) {
+            return emoji3;
+        } else if (index == 4) {
+            return emoji4;
+        } else if (index >= 5) {
+            return emoji5;
+        }
     }
 
     // Async function to get info from 3rd-party API
